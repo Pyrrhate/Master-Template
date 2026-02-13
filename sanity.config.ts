@@ -11,8 +11,8 @@ export default defineConfig({
   name: 'default',
   title: 'Mon Site Template',
 
-  projectId: 'YOUR_PROJECT_ID', // Remplacer par votre ID de projet
-  dataset: 'production', // ou votre dataset
+  projectId: 'sak5opmh',
+  dataset: 'production',
 
   plugins: [
     deskTool({
