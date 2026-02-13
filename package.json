@@ -1,0 +1,30 @@
+{
+  "name": "sanity-template-master",
+  "version": "1.0.0",
+  "description": "Template Master Sanity.io avec Page Builder ultra-flexible",
+  "main": "index.js",
+  "scripts": {
+    "dev": "sanity dev",
+    "start": "sanity start",
+    "build": "sanity build",
+    "deploy": "sanity deploy",
+    "deploy-graphql": "sanity graphql deploy"
+  },
+  "keywords": [
+    "sanity",
+    "cms",
+    "page-builder",
+    "template",
+    "headless"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "sanity": "^3.0.0",
+    "@sanity/vision": "^3.0.0"
+  },
+  "devDependencies": {
+    "@sanity/cli": "^3.0.0",
+    "typescript": "^5.0.0"
+  }
+}
