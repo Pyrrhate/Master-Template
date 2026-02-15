@@ -64,6 +64,7 @@
 //   );
 // }
 import { client } from "@/sanity/client";
+export const runtime = "edge";
 
 export default async function Home() {
   // On récupère les données de Sanity (on demande le titre du premier document trouvé)
