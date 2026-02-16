@@ -1,8 +1,59 @@
 @import "tailwindcss";
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: 240 6% 6%;
+  --foreground: 0 0% 95%;
+
+  --card: 240 5% 10%;
+  --card-foreground: 0 0% 95%;
+
+  --popover: 240 5% 10%;
+  --popover-foreground: 0 0% 95%;
+
+  --primary: 210 100% 56%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 340 82% 52%;
+  --secondary-foreground: 0 0% 100%;
+
+  --muted: 240 4% 16%;
+  --muted-foreground: 240 5% 55%;
+
+  --accent: 210 100% 56%;
+  --accent-foreground: 0 0% 100%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+
+  --border: 0 0% 100% / 0.08;
+  --input: 0 0% 100% / 0.08;
+  --ring: 210 100% 56%;
+
+  --radius: 0.75rem;
+
+  /* Custom tokens */
+  --glass-bg: 0 0% 100% / 0.04;
+  --glass-border: 0 0% 100% / 0.08;
+  --glass-hover: 0 0% 100% / 0.08;
+
+  --gradient-blue: 210 100% 56%;
+  --gradient-pink: 340 82% 52%;
+
+  --glow-blue: 210 100% 56% / 0.4;
+  --glow-pink: 340 82% 52% / 0.3;
+
+  --sidebar-background: 240 6% 8%;
+  --sidebar-foreground: 0 0% 95%;
+  --sidebar-primary: 210 100% 56%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 240 4% 16%;
+  --sidebar-accent-foreground: 0 0% 95%;
+  --sidebar-border: 0 0% 100% / 0.08;
+  --sidebar-ring: 210 100% 56%;
 }
 
 @theme inline {
