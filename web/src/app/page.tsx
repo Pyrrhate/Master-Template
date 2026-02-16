@@ -75,7 +75,7 @@ export default async function Home() {
       <h1 className="text-4xl font-bold text-blue-600">
         {data?.title || "En attente de contenu de Sanity..."}
       </h1>
-      <p className="mt-4 text-gray-500">Connecté à l'usine à sites GCanva</p>
+      <p className="mt-4 text-gray-500">Connecté à l'usia</p>
     </main>
   );
 }
