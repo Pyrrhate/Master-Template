@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "@sanity/client": "^7.14.1",
+    "@sanity/image-url": "^2.0.3",
     "autoprefixer": "^10.4.24",
+    "lucide-react": "^0.574.0",
     "next": "16.1.6",
     "next-sanity": "^12.1.0",
     "postcss": "^8.5.6",
