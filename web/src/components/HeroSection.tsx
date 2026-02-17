@@ -61,7 +61,7 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
         <h1 className="animate-fade-up-delay-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6">
           <span className="block text-foreground">{title}</span>
           {/* Subheading - simple and clean */}
-          <span className="block text-accent mt-4 text-4xl sm:text-5xl md:text-6xl">{subtitle}</span>
+          <span className="block text-accent mt-4 text-xl sm:text-2xl md:text-3xl">{subtitle}</span>
         </h1>
 
         {/* Decorative line */}
