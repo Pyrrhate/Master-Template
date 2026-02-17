@@ -59,8 +59,8 @@ const StackSection = ({
           </p>
         </div>
 
-        {/* Bento Grid avec effet glow */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {/* Bento Grid avec effet glow - Grille 3 colonnes centrée */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
           {stackItems.map((item, index) => (
             <div
               key={item.title}
