@@ -24,7 +24,7 @@ const GallerySection = ({
   projects
 }: GallerySectionProps) => {
   return (
-    <section id="gallery" className="py-24 px-6 relative">
+    <section id="gallery" className="py-12 px-6 relative">
       {/* Background effect */}
       <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
       

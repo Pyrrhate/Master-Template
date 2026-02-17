@@ -29,7 +29,7 @@ const ServicesSection = ({
   servicesItems,
 }: ServicesSectionProps) => {
   return (
-    <section id="services" className="py-24 px-6 relative">
+    <section id="services" className="py-12 px-6 relative">
       {/* Background grid effect */}
       <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
 
