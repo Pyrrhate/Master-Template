@@ -2,7 +2,7 @@ import {defineCliConfig} from 'sanity/cli'
 
 export default defineCliConfig({
   api: {
-    projectId: 'sak5opmh',
+    projectId: 'l3lfckoz',
     dataset: 'production',
     studioHost : 'gcanva-studio'
   }

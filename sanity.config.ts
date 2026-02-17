@@ -11,8 +11,8 @@ export default defineConfig({
   name: 'default',
   title: 'gcanva-studio',
 
-  projectId: 'sak5opmh',
-  dataset: 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET,
 
   plugins: [
     deskTool({
