@@ -288,6 +288,157 @@ export default defineType({
       ],
       validation: (Rule) => Rule.required().min(1),
     }),
+
+    // ===== SERVICES SECTION =====
+    defineField({
+      name: 'servicesTitle',
+      title: 'Services - Titre Principal',
+      type: 'string',
+      description: 'Titre de la section services (ex: Capabilities)',
+      initialValue: 'Capabilities',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'servicesSubtitle',
+      title: 'Services - Sous-titre',
+      type: 'string',
+      description: 'Sous-titre au-dessus du titre (ex: What I do)',
+      initialValue: 'What I do',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'servicesItems',
+      title: 'Services',
+      type: 'array',
+      description: 'Ajoute ou modifie tes services / capacités',
+      of: [
+        {
+          type: 'object',
+          title: 'Service',
+          fields: [
+            {
+              name: 'title',
+              title: 'Nom du Service',
+              type: 'string',
+              description: 'Ex: Web Development, UI/UX Design',
+              validation: (Rule) => Rule.required().min(1).max(100),
+            },
+
+            {
+              name: 'description',
+              title: 'Description',
+              type: 'text',
+              description: 'Description du service',
+              rows: 3,
+              validation: (Rule) => Rule.required().min(1).max(300),
+            },
+
+            {
+              name: 'icon',
+              title: 'Icône',
+              type: 'string',
+              description: 'Choisir l\'icône correspondante',
+              options: {
+                list: [
+                  { title: '💻 Code', value: 'code' },
+                  { title: '🎨 Layout', value: 'layout' },
+                  { title: '🔍 Search', value: 'search' },
+                  { title: '📱 Smartphone', value: 'smartphone' },
+                  { title: '⚙️ CPU', value: 'cpu' },
+                  { title: '🛡️ Shield', value: 'shield' },
+                ],
+              },
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              icon: 'icon',
+              description: 'description',
+            },
+            prepare({ title, icon, description }) {
+              const iconMap: Record<string, string> = {
+                code: '💻',
+                layout: '🎨',
+                search: '🔍',
+                smartphone: '📱',
+                cpu: '⚙️',
+                shield: '🛡️',
+              }
+              return {
+                title: `${iconMap[icon] || '🔹'} ${title}`,
+                subtitle: description?.substring(0, 50) + '...',
+              }
+            },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1),
+    }),
+
+    // ===== FOOTER & CONTACT =====
+    defineField({
+      name: 'footerText',
+      title: 'Texte du Footer',
+      type: 'string',
+      description: 'Texte d\'accreditation du footer',
+      initialValue: 'Built with Next.js & Sanity',
+      validation: (Rule) => Rule.required(),
+    }),
+
+    defineField({
+      name: 'email',
+      title: 'Email de Contact',
+      type: 'string',
+      description: 'Adresse email de contact',
+      validation: (Rule) => Rule.required().email(),
+    }),
+
+    defineField({
+      name: 'socialLinks',
+      title: 'Réseaux Sociaux',
+      type: 'array',
+      description: 'Ajoute ou modifie tes liens réseaux sociaux',
+      of: [
+        {
+          type: 'object',
+          title: 'Lien Social',
+          fields: [
+            {
+              name: 'platform',
+              title: 'Nom du Réseau',
+              type: 'string',
+              description: 'Ex: LinkedIn, GitHub, Twitter',
+              validation: (Rule) => Rule.required().min(1).max(50),
+            },
+
+            {
+              name: 'url',
+              title: 'URL du Réseau',
+              type: 'url',
+              description: 'Lien vers le profil (avec https://)',
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: {
+              title: 'platform',
+              url: 'url',
+            },
+            prepare({ title, url }) {
+              return {
+                title: title,
+                subtitle: url,
+              }
+            },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.min(1),
+    }),
   ],
 
   // ===== PREVIEW =====

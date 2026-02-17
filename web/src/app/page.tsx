@@ -30,6 +30,21 @@ export default async function Page() {
       image,
       url,
       span
+    },
+    
+    servicesTitle,
+    servicesSubtitle,
+    servicesItems[]{
+      title,
+      description,
+      icon
+    },
+    
+    footerText,
+    email,
+    socialLinks[]{
+      platform,
+      url
     }
   }`);
 
@@ -68,6 +83,14 @@ export default async function Page() {
       gallerySubtitle={data.gallerySubtitle}
       galleryDescription={data.galleryDescription}
       projects={data.projects || []}
+      
+      servicesTitle={data.servicesTitle}
+      servicesSubtitle={data.servicesSubtitle}
+      servicesItems={data.servicesItems || []}
+      
+      footerText={data.footerText}
+      email={data.email}
+      socialLinks={data.socialLinks || []}
     />
   );
 }
