@@ -1,4 +1,4 @@
-import { Code2, Palette, GitBranch, Globe, FileText, Wrench } from "lucide-react";
+import { Code2, Palette, GitBranch, Globe, FileText, Wrench, Cpu, Database, Server, Zap } from "lucide-react";
 
 // Interface pour un élément de la stack
 export interface StackItem {
@@ -24,6 +24,10 @@ const iconMap: Record<string, React.ReactNode> = {
   globe: <Globe className="w-5 h-5" />,
   file: <FileText className="w-5 h-5" />,
   wrench: <Wrench className="w-5 h-5" />,
+  cpu: <Cpu className="w-5 h-5" />,
+  database: <Database className="w-5 h-5" />,
+  server: <Server className="w-5 h-5" />,
+  zap: <Zap className="w-5 h-5" />,
 };
 
 const StackSection = ({ 
