@@ -60,8 +60,10 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
         {/* Heading with gradient and glow */}
         <h1 className="animate-fade-up-delay-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6">
           <span className="block text-foreground">{title}</span>
-          {/* Subheading */}
-          <span className="block gradient-text glow-text mt-2">{subtitle}</span>
+          {/* Subheading - with improved readability */}
+          <span className="block mt-4 px-6 py-3 rounded-xl text-backdrop">
+            <span className="gradient-text inline-block font-bold">{subtitle}</span>
+          </span>
         </h1>
 
         {/* Decorative line */}
