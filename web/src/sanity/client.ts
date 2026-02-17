@@ -3,7 +3,7 @@ import imageUrlBuilder from '@sanity/image-url';
 
 // 1. On crée le client Sanity (UNE SEULE FOIS)
 export const client = createClient({
-  projectId: "l3lfckoz", 
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID, 
   dataset: "production",
   apiVersion: "2024-01-01",
   useCdn: false,
