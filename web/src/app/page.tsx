@@ -3,11 +3,13 @@ import HomeDesign from "@/components/HomeDesign";
 
 export default async function Page() {
   
-  // Récupération des données depuis le schéma homepage
+  // 1. LA REQUÊTE : On demande TOUTES les images possibles (heroImage ET mainImage)
   const data = await client.fetch(`*[_type == "homepage"][0]{
     heroTitle,
     heroSubtitle,
-    heroImage,
+    heroImage,   // Image de fond (définie dans ton schéma)
+    mainImage,   // Image de profil (définie dans ton schéma) - JE L'AI AJOUTÉE ICI !
+    
     stackTitle,
     stackSubtitle,
     stackDescription,
@@ -18,6 +20,7 @@ export default async function Page() {
       span,
       accentClass
     },
+    
     galleryTitle,
     gallerySubtitle,
     galleryDescription,
@@ -30,6 +33,7 @@ export default async function Page() {
     }
   }`);
 
+  // 2. LA VÉRIFICATION
   if (!data) {
     return (
       <div className="flex h-screen items-center justify-center bg-background">
@@ -43,16 +47,23 @@ export default async function Page() {
     );
   }
 
-  // Transmission des données au composant HomeDesign
+  // 3. LA LIVRAISON
   return (
     <HomeDesign 
       title={data.heroTitle || "Titre non défini"} 
       subtitle={data.heroSubtitle || "Sous-titre non défini"}
-      mainImage={data.heroImage}
+      
+      // 👇 LA LOGIQUE BLINDÉE :
+      // On prend mainImage (profil) en priorité. 
+      // Si elle n'existe pas, on prend heroImage (fond).
+      // Si aucune n'existe, ça envoie null (et le composant gère).
+      mainImage={data.mainImage || data.heroImage} 
+      
       stackTitle={data.stackTitle}
       stackSubtitle={data.stackSubtitle}
       stackDescription={data.stackDescription}
       stackItems={data.stackItems || []}
+      
       galleryTitle={data.galleryTitle}
       gallerySubtitle={data.gallerySubtitle}
       galleryDescription={data.galleryDescription}
