@@ -183,14 +183,6 @@ body {
   border-color: hsl(var(--primary) / 0.3);
 }
 
-/* Text backdrop for readability */
-.text-backdrop {
-  background: linear-gradient(180deg, hsl(225 25% 9% / 0.6), hsl(225 25% 9% / 0.4));
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid hsl(var(--primary) / 0.1);
-}
-
 /* Gradient text */
 .gradient-text {
   background: linear-gradient(135deg, hsl(var(--gradient-primary)), hsl(var(--gradient-accent)));
@@ -237,9 +229,5 @@ body {
 }
 
 .glow-text {
-  text-shadow: 0 0 10px hsl(var(--glow-primary) / 0.4);
-}
-
-.text-shadow-lg {
-  text-shadow: 0 0 8px hsl(var(--glow-primary) / 0.3);
+  /* Removed - too much blur */
 }
