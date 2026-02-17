@@ -11,13 +11,7 @@ const nextConfig = {
     fetches: {
       fullUrl: true,
     },
-  },
-  // Si tu utilises Turbopack, cela aide à stabiliser les chemins
-  experimental: {
-    turbo: {
-      root: '..', // Indique que la racine du projet est un dossier au-dessus
-    },
-  },
+  }
 };
 
 export default nextConfig;
