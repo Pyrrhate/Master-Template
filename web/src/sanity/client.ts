@@ -1,17 +1,17 @@
 import { createClient } from "next-sanity";
-import imageUrlBuilder from '@sanity/image-url';
+import imageUrlBuilder from "@sanity/image-url";
+import { sanityEnv } from "./env";
 
-// 1. On crée le client Sanity
 export const client = createClient({
-  projectId: "l3lfckoz", // 👈 REGARDE BIEN : J'ai mis des guillemets autour !
-  dataset: "production",
-  apiVersion: "2024-01-01",
-  useCdn: false,
+  projectId: sanityEnv.projectId,
+  dataset: sanityEnv.dataset,
+  apiVersion: sanityEnv.apiVersion,
+  useCdn: sanityEnv.useCdn,
+  token: sanityEnv.token,
 });
 
-// 2. On configure le générateur d'URL
 const builder = imageUrlBuilder(client);
 
-export function urlFor(source: any) {
+export function urlFor(source: unknown) {
   return builder.image(source);
 }
