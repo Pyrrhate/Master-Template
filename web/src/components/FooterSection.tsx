@@ -26,7 +26,7 @@ const FooterSection = ({
   socialLinks = [],
 }: FooterSectionProps) => {
   return (
-    <footer className="border-t border-primary/10 py-12 px-6 relative overflow-hidden">
+    <footer className="py-12 px-6 relative overflow-hidden">
       {/* Background gradient subtil */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-30" />
       
@@ -34,102 +34,91 @@ const FooterSection = ({
       <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
       
       <div className="max-w-6xl mx-auto relative z-10">
-        {/* Top decorative line */}
-        <div className="flex items-center justify-center gap-3 mb-8">
-          <div className="h-px w-16 bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
+        {/* Section header - comme les autres sections */}
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center gap-2 mb-4">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
+            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
+              Let's Connect
+            </p>
+            <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+            Prêt à Démarrer ?
+          </h2>
+          <p className="mt-4 text-muted-foreground max-w-lg mx-auto mb-8">
+            Discutons de votre projet et forgeons ensemble votre prochain outil numérique.
+          </p>
+
+          {/* CTA Contact Button */}
+          <a
+            href={`mailto:${email}`}
+            className="group relative inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold overflow-hidden rounded-lg bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(87,131,187,0.5)]"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+            <Mail className="w-4 h-4 relative z-10" />
+            <span className="relative z-10">Contact</span>
+          </a>
+        </div>
+
+        {/* Social links */}
+        <div className="flex items-center justify-center gap-3 mb-12">
+          {socialLinks && socialLinks.length > 0 ? (
+            socialLinks.map((link) => (
+              <a
+                key={link.platform}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.platform}
+                className="group relative w-12 h-12 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
+                title={link.platform}
+              >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="relative z-10">{getIconForPlatform(link.platform)}</span>
+              </a>
+            ))
+          ) : (
+            // Fallback default socials
+            [
+              { icon: <Github className="w-5 h-5" />, href: "#", label: "GitHub" },
+              { icon: <Twitter className="w-5 h-5" />, href: "#", label: "Twitter" },
+              { icon: <Linkedin className="w-5 h-5" />, href: "#", label: "LinkedIn" },
+              { icon: <Mail className="w-5 h-5" />, href: `mailto:${email}`, label: "Email" },
+            ].map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                aria-label={s.label}
+                className="group relative w-12 h-12 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
+              >
+                {/* Glow effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                <span className="relative z-10">{s.icon}</span>
+              </a>
+            ))
+          )}
+        </div>
+
+        {/* Decorative divider */}
+        <div className="flex items-center justify-center gap-3 my-8">
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="flex gap-1">
             <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-            <div className="w-1 h-1 rounded-full bg-secondary animate-pulse" style={{ animationDelay: '0.2s' }} />
+            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.2s' }} />
             <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.4s' }} />
           </div>
-          <div className="h-px w-16 bg-gradient-to-l from-transparent via-primary/50 to-transparent" />
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-          {/* Branding & Contact */}
-          <div className="text-center md:text-left">
-            <p className="text-lg font-bold text-foreground mb-1">
-              GCanva<span className="gradient-text glow-text">.</span>
-            </p>
-            <p className="text-xs text-muted-foreground uppercase tracking-wider">
-              Digital Forge • Cloud Architect
-            </p>
-            <div className="mt-3 flex flex-col gap-2">
-              {email && (
-                <a
-                  href={`mailto:${email}`}
-                  className="text-[12px] text-primary hover:text-accent transition-colors"
-                >
-                  {email}
-                </a>
-              )}
-              <div className="flex items-center gap-2 justify-center md:justify-start">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                <span className="text-[10px] text-muted-foreground uppercase tracking-wider">
-                  Status: Online
-                </span>
-              </div>
-            </div>
+        {/* Bottom copyright and tech signature */}
+        <div className="text-center space-y-3">
+          <div className="text-xs text-muted-foreground">
+            © 2026 <span className="text-primary font-semibold">GCanva</span> • All rights reserved
           </div>
-
-          {/* Social links avec effet industriel */}
-          <div className="flex items-center gap-3">
-            {socialLinks && socialLinks.length > 0 ? (
-              socialLinks.map((link) => (
-                <a
-                  key={link.platform}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.platform}
-                  className="group relative w-10 h-10 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
-                  title={link.platform}
-                >
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative z-10">{getIconForPlatform(link.platform)}</span>
-                </a>
-              ))
-            ) : (
-              // Fallback default socials
-              [
-                { icon: <Github className="w-4 h-4" />, href: "#", label: "GitHub" },
-                { icon: <Twitter className="w-4 h-4" />, href: "#", label: "Twitter" },
-                { icon: <Linkedin className="w-4 h-4" />, href: "#", label: "LinkedIn" },
-                { icon: <Mail className="w-4 h-4" />, href: `mailto:${email}`, label: "Email" },
-              ].map((s) => (
-                <a
-                  key={s.label}
-                  href={s.href}
-                  aria-label={s.label}
-                  className="group relative w-10 h-10 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
-                >
-                  {/* Glow effect on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative z-10">{s.icon}</span>
-                </a>
-              ))
-            )}
-          </div>
-
-          {/* Copyright avec accent */}
-          <div className="text-center md:text-right">
-            <p className="text-xs text-muted-foreground">
-              © 2026 <span className="text-primary font-semibold">GCanva</span>
-            </p>
-            <p className="text-[10px] text-muted-foreground/60 mt-1 uppercase tracking-wider">
-              All rights reserved
-            </p>
-          </div>
-        </div>
-
-        {/* Bottom tech signature */}
-        <div className="mt-8 pt-6 border-t border-primary/10">
-          <div className="flex flex-wrap items-center justify-center gap-2 text-[10px] text-muted-foreground/60 uppercase tracking-wider">
-            <span className="flex items-center gap-1.5">
-              <div className="w-1 h-1 rounded-full bg-primary/50" />
-              {footerText}
-            </span>
+          <div className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">
+            {footerText}
           </div>
         </div>
       </div>
