@@ -3,7 +3,7 @@ import imageUrlBuilder from '@sanity/image-url';
 
 // 1. On crée le client Sanity (UNE SEULE FOIS)
 export const client = createClient({
-  projectId: l3lfckoz, 
+  projectId: 'l3lfckoz', 
   dataset: "production",
   apiVersion: "2024-01-01",
   useCdn: false,
@@ -15,3 +15,5 @@ const builder = imageUrlBuilder(client);
 export function urlFor(source: any) {
   return builder.image(source);
 }
+
+
