@@ -1,89 +1,103 @@
-import { Code2, Palette, GitBranch, Globe, FileText } from "lucide-react";
+import { Code2, Palette, GitBranch, Globe, FileText, Wrench } from "lucide-react";
 
-interface StackCard {
+// Interface pour un élément de la stack
+export interface StackItem {
   title: string;
   description: string;
-  icon: React.ReactNode;
-  span: string;
-  accentClass: string;
+  icon?: string; // Nom de l'icône (optionnel)
+  span?: string; // Classes de grid span
+  accentClass?: string;
 }
 
-const stackCards: StackCard[] = [
-  {
-    title: "React / Next.js",
-    description: "Lightning-fast rendering with server components and edge-first architecture. Zero compromise on performance.",
-    icon: <Code2 className="w-6 h-6" />,
-    span: "col-span-2 row-span-2",
-    accentClass: "text-primary",
-  },
-  {
-    title: "Tailwind CSS",
-    description: "Utility-first design system for pixel-perfect, responsive interfaces.",
-    icon: <Palette className="w-5 h-5" />,
-    span: "col-span-1 row-span-1",
-    accentClass: "text-primary",
-  },
-  {
-    title: "GitHub",
-    description: "Version control and CI/CD pipelines powering every deployment.",
-    icon: <GitBranch className="w-5 h-5" />,
-    span: "col-span-1 row-span-1",
-    accentClass: "text-foreground",
-  },
-  {
-    title: "Cloudflare",
-    description: "Global edge network with 300+ data centers. Your content, everywhere, instantly.",
-    icon: <Globe className="w-5 h-5" />,
-    span: "col-span-2 row-span-1",
-    accentClass: "text-primary",
-  },
-  {
-    title: "Sanity",
-    description: "Structured content platform for real-time collaborative editing.",
-    icon: <FileText className="w-5 h-5" />,
-    span: "col-span-2 row-span-1",
-    accentClass: "text-secondary",
-  },
-];
+interface StackSectionProps {
+  title?: string;
+  subtitle?: string;
+  description?: string;
+  stackItems: StackItem[];
+}
 
-const StackSection = () => {
+// Map des icônes disponibles
+const iconMap: Record<string, React.ReactNode> = {
+  code: <Code2 className="w-6 h-6" />,
+  palette: <Palette className="w-5 h-5" />,
+  git: <GitBranch className="w-5 h-5" />,
+  globe: <Globe className="w-5 h-5" />,
+  file: <FileText className="w-5 h-5" />,
+  wrench: <Wrench className="w-5 h-5" />,
+};
+
+const StackSection = ({ 
+  title = "The Stack",
+  subtitle = "The Engine Room",
+  description = "Every module is purpose-built for speed, scale, and creative freedom.",
+  stackItems 
+}: StackSectionProps) => {
   return (
-    <section id="stack" className="py-24 px-6">
-      <div className="max-w-6xl mx-auto">
-        {/* Section header */}
+    <section id="stack" className="py-24 px-6 relative">
+      {/* Background grid effect */}
+      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
+        {/* Section header avec style industriel */}
         <div className="text-center mb-16">
-          <p className="text-xs font-semibold tracking-[0.2em] uppercase text-primary mb-3">
-            The Engine Room
-          </p>
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground">
-            The Stack
+          <div className="inline-flex items-center gap-2 mb-4">
+            <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
+            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
+              {subtitle}
+            </p>
+            <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
+          </div>
+          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+            {title}
           </h2>
           <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
-            Every module is purpose-built for speed, scale, and creative freedom.
+            {description}
           </p>
         </div>
 
-        {/* Bento Grid */}
+        {/* Bento Grid avec effet glow */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {stackCards.map((card) => (
+          {stackItems.map((item, index) => (
             <div
-              key={card.title}
-              className={`${card.span} glass glass-hover rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] group`}
+              key={item.title}
+              className={`${item.span || 'col-span-1'} glass rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] group relative overflow-hidden border border-primary/10 hover:border-primary/30`}
+              style={{
+                animationDelay: `${index * 0.1}s`,
+              }}
             >
-              <div>
-                <div className={`${card.accentClass} mb-4 inline-flex items-center justify-center w-10 h-10 rounded-xl bg-muted`}>
-                  {card.icon}
+              {/* Glow effect on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              
+              <div className="relative z-10">
+                <div className={`${item.accentClass || 'text-primary'} mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-background/50 backdrop-blur-sm group-hover:border-primary/40 transition-colors`}>
+                  {item.icon && iconMap[item.icon] ? iconMap[item.icon] : <Wrench className="w-5 h-5" />}
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2">
-                  {card.title}
+                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+                  {item.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  {card.description}
+                  {item.description}
                 </p>
               </div>
-              <div className="mt-4 h-px w-full bg-gradient-to-r from-transparent via-muted-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              {/* Bottom glow line */}
+              <div className="relative z-10 mt-4 h-px w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+              
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-3xl" />
             </div>
           ))}
+        </div>
+
+        {/* Industrial decorative element */}
+        <div className="mt-16 flex items-center justify-center gap-3">
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
+          <div className="flex gap-1">
+            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
+            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.2s' }} />
+            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.4s' }} />
+          </div>
+          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
         </div>
       </div>
     </section>
