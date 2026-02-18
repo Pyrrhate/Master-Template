@@ -1,15 +1,16 @@
 // @ts-nocheck
 import { createClient } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
+import createImageUrlBuilder from "@sanity/image-url"; // Changement ici
 
 export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "l3lfckoz",
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
+  projectId: "l3lfckoz",
+  dataset: "production",
   apiVersion: "2024-01-01",
   useCdn: false,
 });
 
-const builder = imageUrlBuilder(client);
+// On utilise le nouveau constructeur recommandé
+const builder = createImageUrlBuilder(client);
 
 export function urlFor(source: any) {
   return builder.image(source);
