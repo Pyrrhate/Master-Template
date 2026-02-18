@@ -54,22 +54,22 @@ const ServicesSection = ({
   servicesItems,
 }: ServicesSectionProps) => {
   return (
-    <section id="services" className="relative section-radial px-6 py-24 md:py-32">
+    <section id="services" className="py-12 px-6 relative">
       {/* Background grid effect */}
-      <div className="absolute inset-0 opacity-[0.03] grid-pattern" />
+      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
 
-      <div className="relative z-10 mx-auto max-w-6xl">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="mb-16 text-center"
+          className="text-center mb-16"
         >
-          <div className="mb-4 inline-flex items-center gap-2">
+          <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
-            <p className="badge-artisan px-3 py-1.5 font-semibold text-primary">
+            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
               {subtitle}
             </p>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
@@ -92,21 +92,21 @@ const ServicesSection = ({
               key={service.title}
               variants={itemVariants}
               transition={{ delay: index * 0.12 }}
-              className="artisan-card group relative flex flex-col gap-4 overflow-hidden p-8 hover:scale-[1.02]"
+              className="glass rounded-2xl p-8 flex flex-col gap-4 transition-all duration-300 hover:scale-[1.02] group relative overflow-hidden border border-primary/10 hover:border-primary/30"
             >
               {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
               <div className="relative z-10">
                 {/* Icon */}
-                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-colors duration-300 ease-out group-hover:border-primary/40">
+                <div className="text-primary mb-4 inline-flex items-center justify-center w-14 h-14 rounded-xl border border-primary/20 bg-background/50 backdrop-blur-sm group-hover:border-primary/40 transition-colors">
                   {service.icon && iconMap[service.icon]
                     ? iconMap[service.icon]
                     : <Code2 className="w-6 h-6" />}
                 </div>
 
                 {/* Content */}
-                <h3 className="mb-3 text-lg font-semibold text-foreground transition-colors duration-300 ease-out group-hover:text-primary">
+                <h3 className="text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -118,7 +118,7 @@ const ServicesSection = ({
               <div className="relative z-10 mt-2 h-px w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
               {/* Corner accent */}
-              <div className="absolute bottom-0 right-0 h-12 w-12 rounded-tl-2xl bg-gradient-to-tl from-primary/10 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+              <div className="absolute bottom-0 right-0 w-12 h-12 bg-gradient-to-tl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-tl-2xl" />
             </motion.div>
           ))}
         </motion.div>

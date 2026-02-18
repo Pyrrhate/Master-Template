@@ -49,22 +49,22 @@ const GallerySection = ({
   projects
 }: GallerySectionProps) => {
   return (
-    <section id="gallery" className="relative section-radial px-6 py-24 md:py-32">
+    <section id="gallery" className="py-12 px-6 relative">
       {/* Background effect */}
-      <div className="absolute inset-0 opacity-[0.03] grid-pattern" />
+      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
       
-      <div className="relative z-10 mx-auto max-w-6xl">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section header avec style industriel */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="mb-16 text-center"
+          className="text-center mb-16"
         >
-          <div className="mb-4 inline-flex items-center gap-2">
+          <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
-            <p className="badge-artisan px-3 py-1.5 font-semibold text-primary">
+            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-accent-foreground">
               {subtitle}
             </p>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-accent" />
@@ -72,7 +72,7 @@ const GallerySection = ({
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
             {title}
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+          <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
             {description}
           </p>
         </motion.div>
@@ -90,27 +90,27 @@ const GallerySection = ({
               key={project.title}
               variants={tileVariants}
               transition={{ delay: index * 0.12 }}
-              className={`${project.span || 'md:col-span-1'} artisan-card group relative aspect-[4/3] cursor-pointer overflow-hidden rounded-2xl`}
+              className={`${project.span || 'md:col-span-1'} group relative overflow-hidden rounded-2xl glass aspect-[4/3] cursor-pointer transition-all duration-500 hover:scale-[1.02] border border-primary/10 hover:border-primary/30`}
             >
               {/* Image avec effet de zoom */}
               {project.image && (
                 <img
                   src={urlFor(project.image).width(800).url()}
                   alt={project.title}
-                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   loading="lazy"
                 />
               )}
 
               {/* Overlay gradient industriel */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/45 to-transparent opacity-70 transition-opacity duration-300 ease-out group-hover:opacity-95" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
               
               {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100 mix-blend-overlay" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay" />
 
               {/* Content avec animation */}
-              <div className="absolute bottom-0 left-0 right-0 translate-y-2 p-6 opacity-0 transition-all duration-300 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-                <p className="mb-2 flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-primary">
+              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <p className="text-xs font-medium text-primary tracking-wider uppercase mb-2 flex items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
                   {project.category}
                 </p>
@@ -123,7 +123,7 @@ const GallerySection = ({
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex h-8 w-8 items-center justify-center rounded-full border border-border bg-card/60 transition-colors duration-300 ease-out hover:bg-primary/20"
+                      className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-colors"
                     >
                       <ExternalLink className="w-4 h-4 text-primary" />
                     </a>
@@ -135,8 +135,8 @@ const GallerySection = ({
               </div>
 
               {/* Static label badge */}
-              <div className="badge-artisan absolute left-4 top-4 border-primary/20 px-3 py-1.5">
-                <span className="text-xs font-medium text-foreground/80">
+              <div className="absolute top-4 left-4 glass rounded-full px-3 py-1.5 border border-primary/20 backdrop-blur-md">
+                <span className="text-xs font-medium text-foreground/80 uppercase tracking-wider">
                   {project.category}
                 </span>
               </div>

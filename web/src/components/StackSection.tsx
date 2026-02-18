@@ -62,22 +62,22 @@ const StackSection = ({
   stackItems 
 }: StackSectionProps) => {
   return (
-    <section id="stack" className="relative section-radial px-6 py-24 md:py-32">
+    <section id="stack" className="py-12 px-6 relative">
       {/* Background grid effect */}
-      <div className="absolute inset-0 opacity-[0.03] grid-pattern" />
+      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
       
-      <div className="relative z-10 mx-auto max-w-6xl">
+      <div className="max-w-6xl mx-auto relative z-10">
         {/* Section header avec style industriel */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="mb-16 text-center"
+          className="text-center mb-16"
         >
-          <div className="mb-4 inline-flex items-center gap-2">
+          <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
-            <p className="badge-artisan px-3 py-1.5 font-semibold text-primary">
+            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
               {subtitle}
             </p>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
@@ -85,7 +85,7 @@ const StackSection = ({
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
             {title}
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-muted-foreground">
+          <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
             {description}
           </p>
         </motion.div>
@@ -96,23 +96,23 @@ const StackSection = ({
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="mx-auto grid max-w-6xl grid-cols-1 gap-4 md:grid-cols-3"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto"
         >
           {stackItems.map((item, index) => (
             <motion.div
               key={item.title}
               variants={cardVariants}
-              className={`${item.span || 'col-span-1'} artisan-card group relative flex flex-col justify-between overflow-hidden p-6 hover:scale-[1.02]`}
+              className={`${item.span || 'col-span-1'} glass rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] group relative overflow-hidden border border-primary/10 hover:border-primary/30`}
               transition={{ delay: index * 0.12 }}
             >
               {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               
               <div className="relative z-10">
-                <div className={`${item.accentClass || 'text-primary'} mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 transition-colors duration-300 ease-out group-hover:border-primary/40`}>
+                <div className={`${item.accentClass || 'text-primary'} mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-background/50 backdrop-blur-sm group-hover:border-primary/40 transition-colors`}>
                   {item.icon && iconMap[item.icon] ? iconMap[item.icon] : <Wrench className="w-5 h-5" />}
                 </div>
-                <h3 className="mb-2 text-lg font-semibold text-foreground transition-colors duration-300 ease-out group-hover:text-primary">
+                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
                   {item.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -124,7 +124,7 @@ const StackSection = ({
               <div className="relative z-10 mt-4 h-px w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
               
               {/* Corner accent */}
-              <div className="absolute top-0 right-0 h-16 w-16 rounded-bl-3xl bg-gradient-to-br from-primary/10 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-3xl" />
             </motion.div>
           ))}
         </motion.div>

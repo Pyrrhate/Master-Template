@@ -11,26 +11,11 @@ interface HeroProps {
 
 const viewport = { once: true, margin: "-100px" };
 
-const renderArtisanTitle = (text: string) => {
-  const artisanRegex = /(artisan)/gi;
-  const parts = text.split(artisanRegex);
-
-  return parts.map((part, index) =>
-    part.toLowerCase() === "artisan" ? (
-      <span key={`${part}-${index}`} className="gradient-text">
-        {part}
-      </span>
-    ) : (
-      <span key={`${part}-${index}`}>{part}</span>
-    ),
-  );
-};
-
 const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
   return (
-    <section className="relative section-radial min-h-screen flex items-center justify-center overflow-hidden mesh-gradient">
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-gradient">
       {/* Animated mesh gradient - handled by ::before pseudo-element */}
-      
+
       {/* Floating gradient orbs */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl opacity-30 animate-pulse" style={{ animation: 'glow-float 8s ease-in-out infinite' }} />
       <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent/10 rounded-full blur-3xl opacity-25 animate-pulse" style={{ animation: 'glow-float 10s ease-in-out infinite 2s' }} />
@@ -39,6 +24,9 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
       {/* Industrial grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.01] grid-pattern"
+        style={{
+          backgroundSize: "50px 50px",
+        }}
       />
 
       {/* Animated scanlines */}
@@ -46,7 +34,7 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent animate-pulse" />
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 text-center">
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         {/* Profile Image with Industrial Border */}
         {mainImage && (
           <motion.div
@@ -76,10 +64,10 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
-          className="badge-artisan mb-8 inline-flex items-center gap-2 px-5 py-2"
+          className="inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 border border-primary/20"
         >
           <Zap className="w-3.5 h-3.5 text-primary animate-pulse" />
-          <span className="text-xs font-medium text-foreground/80">
+          <span className="text-xs font-medium tracking-wider text-foreground/80 uppercase">
             Powered by Next.js 16 • Edge Runtime
           </span>
         </motion.div>
@@ -90,10 +78,10 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.16 }}
-          className="mb-6 text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6"
         >
-          <span className="block text-foreground">{renderArtisanTitle(title)}</span>
-          <span className="mt-4 block text-xl font-sans font-light text-muted-foreground sm:text-2xl md:text-3xl">
+          <span className="block text-foreground">{title}</span>
+          <span className="block text-accent mt-4 text-xl sm:text-2xl md:text-3xl">
             {subtitle}
           </span>
         </motion.h1>
@@ -117,11 +105,11 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
-          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <a
             href="#stack"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-500 ease-out hover:scale-105 hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.25)]"
+            className="group relative inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold overflow-hidden rounded-lg bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(87,131,187,0.5)]"
           >
             <span className="relative z-10">Explore the Forge</span>
             <ArrowRight className="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -129,7 +117,7 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
           </a>
           <a
             href="#gallery"
-            className="badge-artisan inline-flex items-center gap-2 border-primary/30 px-8 py-4 text-sm font-medium text-foreground transition-all duration-500 ease-out hover:border-primary/60"
+            className="inline-flex items-center gap-2 px-8 py-4 text-sm font-medium rounded-lg glass glass-hover border border-primary/30 text-foreground transition-all duration-300 hover:border-primary/60"
           >
             View Portfolio
             <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
