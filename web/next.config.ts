@@ -1,17 +1,8 @@
 import type { NextConfig } from "next";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const currentDir = path.dirname(fileURLToPath(import.meta.url));
-
-const nextConfig = {
-  // Ajoute ou vérifie cette section
+const nextConfig: NextConfig = {
   transpilePackages: ["lucide-react"],
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  }
+  /* Si tu as d'autres options, garde-les, mais vire la partie 'experimental: { turbo: ... }' */
 };
 
 export default nextConfig;
