@@ -69,27 +69,27 @@ export default function HomeDesign({
           mainImage={mainImage} 
         />
         
-        {/* Gallery Section - Les projets d'abord */}
-        <GallerySection 
-          title={galleryTitle}
-          subtitle={gallerySubtitle}
-          description={galleryDescription}
-          projects={projects}
-        />
-        
-        {/* Services Section - Le Workshop / Capabilities ensuite */}
-        <ServicesSection 
-          title={servicesTitle}
-          subtitle={servicesSubtitle}
-          servicesItems={servicesItems}
-        />
-        
-        {/* Stack Section - La section Artisan/Philosophie avant le footer */}
+        {/* Stack Section - La section Artisan/Philosophie */}
         <StackSection 
           title={stackTitle}
           subtitle={stackSubtitle}
           description={stackDescription}
           stackItems={stackItems}
+        />
+
+        {/* Services Section - Le Workshop / Capabilities */}
+        <ServicesSection 
+          title={servicesTitle}
+          subtitle={servicesSubtitle}
+          servicesItems={servicesItems}
+        />
+
+        {/* Gallery Section - Les projets en avant-dernière position */}
+        <GallerySection 
+          title={galleryTitle}
+          subtitle={gallerySubtitle}
+          description={galleryDescription}
+          projects={projects}
         />
         
         {/* Footer avec données dynamiques */}

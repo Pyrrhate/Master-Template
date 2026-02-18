@@ -35,3 +35,6 @@ yarn-error.log*
 
 # OS
 Thumbs.db
+
+# External sibling project snapshot
+gcanva.art/
