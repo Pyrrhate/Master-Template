@@ -1,4 +1,5 @@
 import { Code2, Layout, Search, Smartphone, Cpu, Shield } from "lucide-react";
+import { motion } from "framer-motion";
 
 // Interface pour un élément de service
 export interface ServiceItem {
@@ -12,6 +13,30 @@ interface ServicesSectionProps {
   subtitle?: string;
   servicesItems: ServiceItem[];
 }
+
+const viewport = { once: true, margin: "-100px" };
+
+const listVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.45,
+      ease: [0.16, 1, 0.3, 1] as const,
+      staggerChildren: 0.12,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
 
 // Map des icônes disponibles pour services
 const iconMap: Record<string, React.ReactNode> = {
@@ -29,16 +54,22 @@ const ServicesSection = ({
   servicesItems,
 }: ServicesSectionProps) => {
   return (
-    <section id="services" className="py-12 px-6 relative">
+    <section id="services" className="relative section-radial px-6 py-24 md:py-32">
       {/* Background grid effect */}
-      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
+      <div className="absolute inset-0 opacity-[0.03] grid-pattern" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="relative z-10 mx-auto max-w-6xl">
         {/* Section header */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="mb-16 text-center"
+        >
+          <div className="mb-4 inline-flex items-center gap-2">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
+            <p className="badge-artisan px-3 py-1.5 font-semibold text-primary">
               {subtitle}
             </p>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
@@ -46,31 +77,36 @@ const ServicesSection = ({
           <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
             {title}
           </h2>
-        </div>
+        </motion.div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <motion.div
+          variants={listVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={viewport}
+          className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+        >
           {servicesItems.map((service, index) => (
-            <div
+            <motion.div
               key={service.title}
-              className="glass rounded-2xl p-8 flex flex-col gap-4 transition-all duration-300 hover:scale-[1.02] group relative overflow-hidden border border-primary/10 hover:border-primary/30"
-              style={{
-                animationDelay: `${index * 0.1}s`,
-              }}
+              variants={itemVariants}
+              transition={{ delay: index * 0.12 }}
+              className="artisan-card group relative flex flex-col gap-4 overflow-hidden p-8 hover:scale-[1.02]"
             >
               {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity duration-500 ease-out group-hover:opacity-100" />
 
               <div className="relative z-10">
                 {/* Icon */}
-                <div className="text-primary mb-4 inline-flex items-center justify-center w-14 h-14 rounded-xl border border-primary/20 bg-background/50 backdrop-blur-sm group-hover:border-primary/40 transition-colors">
+                <div className="mb-4 inline-flex h-14 w-14 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary transition-colors duration-300 ease-out group-hover:border-primary/40">
                   {service.icon && iconMap[service.icon]
                     ? iconMap[service.icon]
                     : <Code2 className="w-6 h-6" />}
                 </div>
 
                 {/* Content */}
-                <h3 className="text-lg font-semibold text-foreground mb-3 group-hover:text-primary transition-colors">
+                <h3 className="mb-3 text-lg font-semibold text-foreground transition-colors duration-300 ease-out group-hover:text-primary">
                   {service.title}
                 </h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">
@@ -82,10 +118,10 @@ const ServicesSection = ({
               <div className="relative z-10 mt-2 h-px w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
               {/* Corner accent */}
-              <div className="absolute bottom-0 right-0 w-12 h-12 bg-gradient-to-tl from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-tl-2xl" />
-            </div>
+              <div className="absolute bottom-0 right-0 h-12 w-12 rounded-tl-2xl bg-gradient-to-tl from-primary/10 to-transparent opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Decorative element */}
         <div className="mt-16 flex items-center justify-center gap-3">

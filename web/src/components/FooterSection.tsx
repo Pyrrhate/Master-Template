@@ -1,4 +1,5 @@
 import { Github, Twitter, Linkedin, Mail, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface SocialLink {
   platform: string;
@@ -10,6 +11,8 @@ interface FooterSectionProps {
   footerText?: string;
   socialLinks?: SocialLink[];
 }
+
+const viewport = { once: true, margin: "-100px" };
 
 const getIconForPlatform = (platform: string) => {
   const platformLower = platform.toLowerCase();
@@ -26,19 +29,25 @@ const FooterSection = ({
   socialLinks = [],
 }: FooterSectionProps) => {
   return (
-    <footer className="py-12 px-6 relative overflow-hidden">
+    <footer className="relative section-radial overflow-hidden px-6 py-24 md:py-32">
       {/* Background gradient subtil */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-30" />
       
       {/* Grid pattern */}
-      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
+      <div className="absolute inset-0 opacity-[0.03] grid-pattern" />
       
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="relative z-10 mx-auto max-w-6xl">
         {/* Section header - comme les autres sections */}
-        <div className="text-center mb-16">
-          <div className="inline-flex items-center gap-2 mb-4">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.45, ease: "easeOut" }}
+          className="mb-16 text-center"
+        >
+          <div className="mb-4 inline-flex items-center gap-2">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
+            <p className="badge-artisan px-3 py-1.5 font-semibold text-primary">
               Let's Connect
             </p>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
@@ -53,13 +62,13 @@ const FooterSection = ({
           {/* CTA Contact Button */}
           <a
             href={`mailto:${email}`}
-            className="group relative inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold overflow-hidden rounded-lg bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(87,131,187,0.5)]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-500 ease-out hover:scale-105 hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.25)]"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
             <Mail className="w-4 h-4 relative z-10" />
             <span className="relative z-10">Contact</span>
           </a>
-        </div>
+        </motion.div>
 
         {/* Social links */}
         <div className="flex items-center justify-center gap-3 mb-12">
@@ -71,7 +80,7 @@ const FooterSection = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={link.platform}
-                className="group relative w-12 h-12 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
+                className="artisan-card group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border-primary/10 text-muted-foreground transition-all duration-300 ease-out hover:border-primary/40 hover:text-primary"
                 title={link.platform}
               >
                 {/* Glow effect on hover */}
@@ -91,7 +100,7 @@ const FooterSection = ({
                 key={s.label}
                 href={s.href}
                 aria-label={s.label}
-                className="group relative w-12 h-12 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
+                className="artisan-card group relative flex h-12 w-12 items-center justify-center overflow-hidden rounded-xl border-primary/10 text-muted-foreground transition-all duration-300 ease-out hover:border-primary/40 hover:text-primary"
               >
                 {/* Glow effect on hover */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />

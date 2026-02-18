@@ -1,4 +1,5 @@
 import { ArrowRight, Zap, CircuitBoard } from "lucide-react";
+import { motion } from "framer-motion";
 import { urlFor } from "@/sanity/client";
 
 // Interface définissant les props du composant
@@ -8,9 +9,26 @@ interface HeroProps {
   mainImage: any;
 }
 
+const viewport = { once: true, margin: "-100px" };
+
+const renderArtisanTitle = (text: string) => {
+  const artisanRegex = /(artisan)/gi;
+  const parts = text.split(artisanRegex);
+
+  return parts.map((part, index) =>
+    part.toLowerCase() === "artisan" ? (
+      <span key={`${part}-${index}`} className="gradient-text">
+        {part}
+      </span>
+    ) : (
+      <span key={`${part}-${index}`}>{part}</span>
+    ),
+  );
+};
+
 const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden mesh-gradient">
+    <section className="relative section-radial min-h-screen flex items-center justify-center overflow-hidden mesh-gradient">
       {/* Animated mesh gradient - handled by ::before pseudo-element */}
       
       {/* Floating gradient orbs */}
@@ -21,9 +39,6 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
       {/* Industrial grid pattern */}
       <div
         className="absolute inset-0 opacity-[0.01] grid-pattern"
-        style={{
-          backgroundSize: "50px 50px",
-        }}
       />
 
       {/* Animated scanlines */}
@@ -31,10 +46,16 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-primary/5 to-transparent animate-pulse" />
       </div>
 
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 text-center">
         {/* Profile Image with Industrial Border */}
         {mainImage && (
-          <div className="animate-fade-up mb-8 flex justify-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85, y: 20 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            viewport={viewport}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="mb-8 flex justify-center"
+          >
             <div className="relative group">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary via-accent to-primary rounded-full opacity-75 group-hover:opacity-100 blur animate-glow transition duration-1000" />
               <img 
@@ -46,36 +67,61 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
                 <CircuitBoard className="w-4 h-4 text-primary-foreground" />
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
 
         {/* Badge with glow effect */}
-        <div className="animate-fade-up-delay-1 inline-flex items-center gap-2 glass rounded-full px-5 py-2 mb-8 border border-primary/20">
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.45, ease: "easeOut", delay: 0.08 }}
+          className="badge-artisan mb-8 inline-flex items-center gap-2 px-5 py-2"
+        >
           <Zap className="w-3.5 h-3.5 text-primary animate-pulse" />
-          <span className="text-xs font-medium tracking-wider text-foreground/80 uppercase">
+          <span className="text-xs font-medium text-foreground/80">
             Powered by Next.js 16 • Edge Runtime
           </span>
-        </div>
+        </motion.div>
 
         {/* Heading with gradient and glow */}
-        <h1 className="animate-fade-up-delay-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-tight leading-[0.95] mb-6">
-          <span className="block text-foreground">{title}</span>
-          {/* Subheading - simple and clean */}
-          <span className="block text-accent mt-4 text-xl sm:text-2xl md:text-3xl">{subtitle}</span>
-        </h1>
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.16 }}
+          className="mb-6 text-5xl font-bold leading-[0.95] tracking-tight sm:text-6xl md:text-7xl lg:text-8xl"
+        >
+          <span className="block text-foreground">{renderArtisanTitle(title)}</span>
+          <span className="mt-4 block text-xl font-sans font-light text-muted-foreground sm:text-2xl md:text-3xl">
+            {subtitle}
+          </span>
+        </motion.h1>
 
         {/* Decorative line */}
-        <div className="animate-fade-up-delay-3 flex items-center justify-center gap-3 my-8">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.45, ease: "easeOut", delay: 0.22 }}
+          className="my-8 flex items-center justify-center gap-3"
+        >
           <div className="h-px w-12 bg-gradient-to-r from-transparent to-primary" />
           <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
           <div className="h-px w-12 bg-gradient-to-l from-transparent to-primary" />
-        </div>
+        </motion.div>
 
         {/* CTA Buttons with industrial style */}
-        <div className="animate-fade-up-delay-3 mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <motion.div
+          initial={{ opacity: 0, y: 26 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.5, ease: "easeOut", delay: 0.3 }}
+          className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
           <a
             href="#stack"
-            className="group relative inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold overflow-hidden rounded-lg bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(87,131,187,0.5)]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-xl bg-primary px-8 py-4 text-sm font-semibold text-primary-foreground transition-all duration-500 ease-out hover:scale-105 hover:shadow-[0_0_40px_-10px_hsl(var(--primary)/0.25)]"
           >
             <span className="relative z-10">Explore the Forge</span>
             <ArrowRight className="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -83,15 +129,21 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
           </a>
           <a
             href="#gallery"
-            className="inline-flex items-center gap-2 px-8 py-4 text-sm font-medium rounded-lg glass glass-hover border border-primary/30 text-foreground transition-all duration-300 hover:border-primary/60"
+            className="badge-artisan inline-flex items-center gap-2 border-primary/30 px-8 py-4 text-sm font-medium text-foreground transition-all duration-500 ease-out hover:border-primary/60"
           >
             View Portfolio
             <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
           </a>
-        </div>
+        </motion.div>
 
         {/* Tech stats - pour un effet industriel */}
-        <div className="animate-fade-up-delay-3 mt-16 flex items-center justify-center gap-8 text-xs text-muted-foreground">
+        <motion.div
+          initial={{ opacity: 0, y: 22 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={viewport}
+          transition={{ duration: 0.45, ease: "easeOut", delay: 0.36 }}
+          className="mt-16 flex items-center justify-center gap-8 text-xs text-muted-foreground"
+        >
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="uppercase tracking-wider">Edge Optimized</span>
@@ -106,7 +158,7 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
             <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             <span className="uppercase tracking-wider">Type-safe</span>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Bottom fade with subtle glow */}
