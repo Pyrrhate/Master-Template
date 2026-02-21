@@ -1,6 +1,8 @@
 import { client } from "@/sanity/client"; 
 import HomeDesign from "@/components/HomeDesign"; 
 
+export const dynamic = "force-dynamic";
+
 export default async function Page() {
   
   // 1. LA REQUÊTE : On demande TOUTES les images possibles (heroImage ET mainImage)
