@@ -379,6 +379,39 @@ export default defineType({
       validation: (Rule) => Rule.required().min(1),
     }),
 
+    defineField({
+      name: 'sectionOrder',
+      title: 'Ordre des Sections',
+      type: 'array',
+      description: 'Réorganise l\'ordre des sections principales affichées après le hero (retire une entrée pour masquer la section)',
+      of: [
+        {
+          type: 'string',
+          options: {
+            list: [
+              { title: 'Stack (section technologies)', value: 'stack' },
+              { title: 'Services (section prestations)', value: 'services' },
+              { title: 'Gallery (section projets)', value: 'gallery' },
+            ],
+            layout: 'dropdown',
+          },
+        },
+      ],
+      initialValue: ['stack', 'services', 'gallery'],
+      validation: (Rule) =>
+        Rule.required()
+          .min(1)
+          .custom((value) => {
+            if (!Array.isArray(value)) return 'Sélectionne au moins une section'
+            const allowed = ['stack', 'services', 'gallery']
+            const hasInvalid = value.some((item) => !allowed.includes(item))
+            if (hasInvalid) return 'Valeur de section invalide détectée'
+            const hasDuplicates = new Set(value).size !== value.length
+            if (hasDuplicates) return 'Chaque section ne peut apparaître qu\'une seule fois'
+            return true
+          }),
+    }),
+
     // ===== FOOTER & CONTACT =====
     defineField({
       name: 'footerText',

@@ -48,10 +48,8 @@ const GallerySection = ({
   description = "Selected works from the factory floor. Each piece is engineered to perform.",
   projects
 }: GallerySectionProps) => {
-  const isSingleProject = projects.length === 1;
-
   return (
-    <section id="gallery" className="py-12 px-6 relative">
+    <section id="gallery" className="py-10 px-6 relative">
       {/* Background effect */}
       <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
       
@@ -62,7 +60,7 @@ const GallerySection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
@@ -85,14 +83,14 @@ const GallerySection = ({
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className={isSingleProject ? "flex justify-center" : "grid grid-cols-1 gap-4 md:grid-cols-3"}
+          className="grid grid-cols-1 gap-4 md:grid-cols-3"
         >
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
               variants={tileVariants}
               transition={{ delay: index * 0.12 }}
-              className={`${isSingleProject ? 'w-full max-w-2xl' : (project.span || 'md:col-span-1')} group relative overflow-hidden rounded-2xl glass aspect-[4/3] cursor-pointer transition-all duration-500 hover:scale-[1.02] border border-primary/10 hover:border-primary/30`}
+              className="md:col-span-1 group relative overflow-hidden rounded-2xl glass aspect-[4/3] cursor-pointer transition-all duration-500 hover:scale-[1.02] border border-primary/10 hover:border-primary/30"
             >
               {/* Image avec effet de zoom */}
               {project.image && (
@@ -153,7 +151,7 @@ const GallerySection = ({
         </motion.div>
 
         {/* Industrial decorative element */}
-        <div className="mt-16 flex items-center justify-center gap-3">
+        <div className="mt-12 flex items-center justify-center gap-3">
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="flex gap-1">
             <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />

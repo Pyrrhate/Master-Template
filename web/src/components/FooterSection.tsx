@@ -1,4 +1,4 @@
-import { Github, Twitter, Linkedin, Mail, MapPin } from "lucide-react";
+import { Github, Twitter, Linkedin, Mail, MapPin, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface SocialLink {
@@ -28,10 +28,14 @@ const FooterSection = ({
   footerText = "Built with Next.js 16 • Powered by Sanity • Deployed on Edge",
   socialLinks = [],
 }: FooterSectionProps) => {
+  const validSocialLinks = socialLinks.filter(
+    (link) => Boolean(link?.platform?.trim()) && Boolean(link?.url?.trim())
+  );
+
   return (
-    <footer className="py-12 px-6 relative overflow-hidden">
+    <footer className="py-10 px-6 relative overflow-hidden bg-secondary/35 border-t border-border/70">
       {/* Background gradient subtil */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/15 to-transparent opacity-40" />
       
       {/* Grid pattern */}
       <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
@@ -43,7 +47,7 @@ const FooterSection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
@@ -52,28 +56,25 @@ const FooterSection = ({
             </p>
             <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
           </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
-            Prêt à Démarrer ?
-          </h2>
-          <p className="mt-4 text-muted-foreground max-w-lg mx-auto mb-8">
+          <p className="text-muted-foreground max-w-lg mx-auto mb-8">
             Discutons de votre projet et forgeons ensemble votre prochain outil numérique.
           </p>
 
           {/* CTA Contact Button */}
           <a
             href={`mailto:${email}`}
-            className="group relative inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold overflow-hidden rounded-lg bg-primary text-primary-foreground transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(87,131,187,0.5)]"
+            className="group relative inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold overflow-hidden rounded-lg bg-primary text-primary-foreground border border-primary/40 shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(87,131,187,0.5)]"
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/20 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-            <Mail className="w-4 h-4 relative z-10" />
             <span className="relative z-10">Contact</span>
+            <ArrowRight className="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
           </a>
         </motion.div>
 
         {/* Social links */}
-        <div className="flex items-center justify-center gap-3 mb-12">
-          {socialLinks && socialLinks.length > 0 ? (
-            socialLinks.map((link) => (
+        {validSocialLinks.length > 0 && (
+          <div className="flex items-center justify-center gap-3 mb-10">
+            {validSocialLinks.map((link) => (
               <a
                 key={link.platform}
                 href={link.url}
@@ -87,31 +88,12 @@ const FooterSection = ({
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
                 <span className="relative z-10">{getIconForPlatform(link.platform)}</span>
               </a>
-            ))
-          ) : (
-            // Fallback default socials
-            [
-              { icon: <Github className="w-5 h-5" />, href: "#", label: "GitHub" },
-              { icon: <Twitter className="w-5 h-5" />, href: "#", label: "Twitter" },
-              { icon: <Linkedin className="w-5 h-5" />, href: "#", label: "LinkedIn" },
-              { icon: <Mail className="w-5 h-5" />, href: `mailto:${email}`, label: "Email" },
-            ].map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                aria-label={s.label}
-                className="group relative w-12 h-12 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
-              >
-                {/* Glow effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                <span className="relative z-10">{s.icon}</span>
-              </a>
-            ))
-          )}
-        </div>
+            ))}
+          </div>
+        )}
 
         {/* Decorative divider */}
-        <div className="flex items-center justify-center gap-3 my-8">
+        <div className="flex items-center justify-center gap-3 my-6">
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="flex gap-1">
             <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />

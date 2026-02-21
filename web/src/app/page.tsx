@@ -39,6 +39,8 @@ export default async function Page() {
       description,
       icon
     },
+
+    sectionOrder,
     
     footerText,
     email,
@@ -87,6 +89,7 @@ export default async function Page() {
       servicesTitle={data.servicesTitle}
       servicesSubtitle={data.servicesSubtitle}
       servicesItems={data.servicesItems || []}
+      sectionOrder={data.sectionOrder || []}
       
       footerText={data.footerText}
       email={data.email}

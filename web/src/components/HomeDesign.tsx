@@ -33,6 +33,7 @@ interface HomeProps {
   servicesTitle?: string;
   servicesSubtitle?: string;
   servicesItems: ServiceItem[];
+  sectionOrder?: string[];
   
   // Footer & Contact
   footerText?: string;
@@ -55,10 +56,19 @@ export default function HomeDesign({
   servicesTitle,
   servicesSubtitle,
   servicesItems,
+  sectionOrder,
   footerText,
   email,
   socialLinks
 }: HomeProps) {
+  const fallbackOrder = ["stack", "services", "gallery"];
+  const allowedSections = new Set(fallbackOrder);
+  const configuredOrder = Array.isArray(sectionOrder)
+    ? sectionOrder.filter((item) => allowedSections.has(item))
+    : [];
+  const uniqueConfiguredOrder = [...new Set(configuredOrder)];
+  const finalSectionOrder = uniqueConfiguredOrder.length > 0 ? uniqueConfiguredOrder : fallbackOrder;
+
   return (
     <div className="min-h-screen bg-background">
       <main>
@@ -68,29 +78,41 @@ export default function HomeDesign({
           subtitle={subtitle} 
           mainImage={mainImage} 
         />
-        
-        {/* Stack Section - La section Artisan/Philosophie */}
-        <StackSection 
-          title={stackTitle}
-          subtitle={stackSubtitle}
-          description={stackDescription}
-          stackItems={stackItems}
-        />
 
-        {/* Services Section - Le Workshop / Capabilities */}
-        <ServicesSection 
-          title={servicesTitle}
-          subtitle={servicesSubtitle}
-          servicesItems={servicesItems}
-        />
+        {finalSectionOrder.map((section) => {
+          if (section === "stack") {
+            return (
+              <StackSection
+                key="stack"
+                title={stackTitle}
+                subtitle={stackSubtitle}
+                description={stackDescription}
+                stackItems={stackItems}
+              />
+            );
+          }
 
-        {/* Gallery Section - Les projets en avant-dernière position */}
-        <GallerySection 
-          title={galleryTitle}
-          subtitle={gallerySubtitle}
-          description={galleryDescription}
-          projects={projects}
-        />
+          if (section === "services") {
+            return (
+              <ServicesSection
+                key="services"
+                title={servicesTitle}
+                subtitle={servicesSubtitle}
+                servicesItems={servicesItems}
+              />
+            );
+          }
+
+          return (
+            <GallerySection
+              key="gallery"
+              title={galleryTitle}
+              subtitle={gallerySubtitle}
+              description={galleryDescription}
+              projects={projects}
+            />
+          );
+        })}
         
         {/* Footer avec données dynamiques */}
         <FooterSection 
