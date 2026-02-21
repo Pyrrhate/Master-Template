@@ -110,7 +110,7 @@ const GallerySection = ({
 
               {/* Content avec animation */}
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="inline-flex w-fit rounded-full px-2.5 py-1 border border-primary/40 bg-background/80 backdrop-blur-sm text-xs font-semibold text-foreground tracking-wider uppercase mb-2 items-center gap-2">
+                <p className="inline-flex w-fit rounded-full px-2.5 py-1 border border-primary/60 bg-background/95 backdrop-blur-md text-xs font-semibold text-foreground tracking-wider uppercase mb-2 items-center gap-2 shadow-md shadow-background/80">
                   <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
                   {project.category}
                 </p>
@@ -135,8 +135,8 @@ const GallerySection = ({
               </div>
 
               {/* Static label badge */}
-              <div className="absolute top-4 left-4 rounded-full px-3 py-1.5 border border-primary/40 bg-background/85 backdrop-blur-md shadow-md shadow-background/50">
-                <span className="text-xs font-semibold text-foreground uppercase tracking-wider">
+              <div className="absolute top-4 left-4 rounded-full px-3 py-1.5 border border-primary/60 bg-background/95 backdrop-blur-md shadow-lg shadow-background/80">
+                <span className="text-xs font-bold text-foreground uppercase tracking-wider">
                   {project.category}
                 </span>
               </div>
