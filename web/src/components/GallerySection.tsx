@@ -83,14 +83,14 @@ const GallerySection = ({
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="grid grid-cols-1 gap-4 md:grid-cols-3"
+          className="flex flex-wrap items-stretch justify-center gap-4"
         >
           {projects.map((project, index) => (
             <motion.div
               key={project.title}
               variants={tileVariants}
               transition={{ delay: index * 0.12 }}
-              className="md:col-span-1 group relative overflow-hidden rounded-2xl glass aspect-[4/3] cursor-pointer transition-all duration-500 hover:scale-[1.02] border border-primary/10 hover:border-primary/30"
+              className="w-full md:w-[calc(33.333%-1.1rem)] min-w-[280px] max-w-[520px] group relative overflow-hidden rounded-2xl glass aspect-[4/3] cursor-pointer transition-all duration-500 hover:scale-[1.02] border border-primary/10 hover:border-primary/30"
             >
               {/* Image avec effet de zoom */}
               {project.image && (
@@ -110,7 +110,7 @@ const GallerySection = ({
 
               {/* Content avec animation */}
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="text-xs font-medium text-primary tracking-wider uppercase mb-2 flex items-center gap-2">
+                <p className="inline-flex w-fit rounded-full px-2.5 py-1 border border-primary/40 bg-background/80 backdrop-blur-sm text-xs font-semibold text-foreground tracking-wider uppercase mb-2 items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
                   {project.category}
                 </p>
@@ -135,8 +135,8 @@ const GallerySection = ({
               </div>
 
               {/* Static label badge */}
-              <div className="absolute top-4 left-4 glass rounded-full px-3 py-1.5 border border-primary/20 backdrop-blur-md">
-                <span className="text-xs font-medium text-foreground/80 uppercase tracking-wider">
+              <div className="absolute top-4 left-4 rounded-full px-3 py-1.5 border border-primary/40 bg-background/85 backdrop-blur-md shadow-md shadow-background/50">
+                <span className="text-xs font-semibold text-foreground uppercase tracking-wider">
                   {project.category}
                 </span>
               </div>
