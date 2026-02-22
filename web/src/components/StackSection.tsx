@@ -1,12 +1,13 @@
+"use client";
+
 import { Code2, Palette, GitBranch, Globe, FileText, Wrench, Cpu, Database, Server, Zap } from "lucide-react";
 import { motion } from "framer-motion";
 
-// Interface pour un élément de la stack
 export interface StackItem {
   title: string;
   description: string;
-  icon?: string; // Nom de l'icône (optionnel)
-  span?: string; // Classes de grid span
+  icon?: string;
+  span?: string;
   accentClass?: string;
 }
 
@@ -17,33 +18,30 @@ interface StackSectionProps {
   stackItems: StackItem[];
 }
 
-const viewport = { once: true, margin: "-100px" };
+const viewport = { once: true, margin: "-80px" };
 
-const sectionVariants = {
-  hidden: { opacity: 0, y: 28 },
+const containerVariants = {
+  hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.45,
-      ease: [0.16, 1, 0.3, 1] as const,
-      staggerChildren: 0.12,
+      staggerChildren: 0.08,
+      delayChildren: 0.1,
     },
   },
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: { opacity: 0, y: 20 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] },
   },
 };
 
-// Map des icônes disponibles
 const iconMap: Record<string, React.ReactNode> = {
-  code: <Code2 className="w-6 h-6" />,
+  code: <Code2 className="w-5 h-5" />,
   palette: <Palette className="w-5 h-5" />,
   git: <GitBranch className="w-5 h-5" />,
   globe: <Globe className="w-5 h-5" />,
@@ -55,90 +53,76 @@ const iconMap: Record<string, React.ReactNode> = {
   zap: <Zap className="w-5 h-5" />,
 };
 
-const StackSection = ({ 
+const StackSection = ({
   title = "The Stack",
   subtitle = "The Engine Room",
   description = "Every module is purpose-built for speed, scale, and creative freedom.",
-  stackItems 
+  stackItems,
 }: StackSectionProps) => {
   return (
-    <section id="stack" className="py-8 sm:py-10 px-6 relative">
-      {/* Background grid effect */}
-      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
-      
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section header avec style industriel */}
+    <section id="stack" className="py-24 sm:py-32 px-6 relative">
+      <div className="max-w-5xl mx-auto relative z-10">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
-          transition={{ duration: 0.45, ease: "easeOut" }}
-          className="text-center mb-8 sm:mb-12"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-16"
         >
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
-              {subtitle}
-            </p>
-            <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-[hsl(var(--primary))] mb-4 font-mono">
+            {subtitle}
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-[hsl(var(--foreground))] mb-4">
             {title}
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
+          <p className="text-[hsl(var(--muted-foreground))] max-w-lg leading-relaxed">
             {description}
           </p>
         </motion.div>
 
-        {/* Bento Grid avec effet glow - Grille 3 colonnes centrée */}
+        {/* Bento Grid */}
         <motion.div
-          variants={sectionVariants}
+          variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-3 gap-4"
         >
           {stackItems.map((item, index) => (
             <motion.div
               key={item.title}
               variants={cardVariants}
-              className={`${item.span || 'col-span-1'} glass rounded-2xl p-6 flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] group relative overflow-hidden border border-primary/10 hover:border-primary/30`}
-              transition={{ delay: index * 0.12 }}
+              className={`${item.span || "col-span-1"} premium-card rounded-2xl p-6 flex flex-col justify-between group relative overflow-hidden`}
             >
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              
+              {/* Hover glow overlay */}
+              <div className="absolute inset-0 bg-[hsl(var(--primary)/0.03)] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
               <div className="relative z-10">
-                <div className={`${item.accentClass || 'text-primary'} mb-4 inline-flex items-center justify-center w-12 h-12 rounded-xl border border-primary/20 bg-background/50 backdrop-blur-sm group-hover:border-primary/40 transition-colors`}>
+                {/* Icon */}
+                <div className="mb-5 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-[hsl(var(--secondary))] text-[hsl(var(--primary))] border border-[hsl(var(--border))] group-hover:border-[hsl(var(--primary)/0.3)] transition-colors duration-300">
                   {item.icon && iconMap[item.icon] ? iconMap[item.icon] : <Wrench className="w-5 h-5" />}
                 </div>
-                <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-primary transition-colors">
+
+                {/* Title */}
+                <h3 className="text-base font-semibold text-[hsl(var(--foreground))] mb-2 group-hover:text-[hsl(var(--primary))] transition-colors duration-300">
                   {item.title}
                 </h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">
+
+                {/* Description */}
+                <p className="text-sm text-[hsl(var(--muted-foreground))] leading-relaxed">
                   {item.description}
                 </p>
               </div>
-              
-              {/* Bottom glow line */}
-              <div className="relative z-10 mt-4 h-px w-full bg-gradient-to-r from-transparent via-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-              
-              {/* Corner accent */}
-              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-3xl" />
+
+              {/* Bottom accent line */}
+              <div className="relative z-10 mt-5 h-px w-0 group-hover:w-full bg-gradient-to-r from-[hsl(var(--primary)/0.5)] to-transparent transition-all duration-500" />
+
+              {/* Corner glow */}
+              <div className="absolute -top-12 -right-12 w-24 h-24 bg-[hsl(var(--primary)/0.08)] rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Industrial decorative element */}
-        <div className="mt-8 sm:mt-12 flex items-center justify-center gap-3">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
-          <div className="flex gap-1">
-            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.2s' }} />
-            <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: '0.4s' }} />
-          </div>
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
-        </div>
       </div>
     </section>
   );

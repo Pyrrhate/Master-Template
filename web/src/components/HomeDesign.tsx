@@ -1,5 +1,6 @@
 "use client";
 
+import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StackSection, { StackItem } from "@/components/StackSection";
 import GallerySection, { GalleryProject } from "@/components/GallerySection";
@@ -12,38 +13,29 @@ interface SocialLink {
 }
 
 interface HomeProps {
-  // Hero Section
   title: string;
   subtitle: string;
   mainImage: any;
-  
-  // Stack Section
   stackTitle?: string;
   stackSubtitle?: string;
   stackDescription?: string;
   stackItems: StackItem[];
-  
-  // Gallery Section
   galleryTitle?: string;
   gallerySubtitle?: string;
   galleryDescription?: string;
   projects: GalleryProject[];
-  
-  // Services Section
   servicesTitle?: string;
   servicesSubtitle?: string;
   servicesItems: ServiceItem[];
   sectionOrder?: string[];
-  
-  // Footer & Contact
   footerText?: string;
   email?: string;
   socialLinks: SocialLink[];
 }
 
-export default function HomeDesign({ 
-  title, 
-  subtitle, 
+export default function HomeDesign({
+  title,
+  subtitle,
   mainImage,
   stackTitle,
   stackSubtitle,
@@ -59,7 +51,7 @@ export default function HomeDesign({
   sectionOrder,
   footerText,
   email,
-  socialLinks
+  socialLinks,
 }: HomeProps) {
   const fallbackOrder = ["stack", "services", "gallery"];
   const allowedSections = new Set(fallbackOrder);
@@ -67,55 +59,65 @@ export default function HomeDesign({
     ? sectionOrder.filter((item) => allowedSections.has(item))
     : [];
   const uniqueConfiguredOrder = [...new Set(configuredOrder)];
-  const finalSectionOrder = uniqueConfiguredOrder.length > 0 ? uniqueConfiguredOrder : fallbackOrder;
+  const finalSectionOrder =
+    uniqueConfiguredOrder.length > 0 ? uniqueConfiguredOrder : fallbackOrder;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[hsl(var(--background))] noise-overlay relative">
+      <Navbar sectionOrder={finalSectionOrder} />
+
       <main>
-        {/* Hero Section */}
-        <HeroSection 
-          title={title} 
-          subtitle={subtitle} 
-          mainImage={mainImage} 
+        <HeroSection
+          title={title}
+          subtitle={subtitle}
+          mainImage={mainImage}
         />
 
-        {finalSectionOrder.map((section) => {
-          if (section === "stack") {
-            return (
-              <StackSection
-                key="stack"
-                title={stackTitle}
-                subtitle={stackSubtitle}
-                description={stackDescription}
-                stackItems={stackItems}
-              />
-            );
-          }
-
-          if (section === "services") {
-            return (
-              <ServicesSection
-                key="services"
-                title={servicesTitle}
-                subtitle={servicesSubtitle}
-                servicesItems={servicesItems}
-              />
-            );
-          }
+        {finalSectionOrder.map((section, index) => {
+          const showDivider = index > 0;
 
           return (
-            <GallerySection
-              key="gallery"
-              title={galleryTitle}
-              subtitle={gallerySubtitle}
-              description={galleryDescription}
-              projects={projects}
-            />
+            <div key={section}>
+              {showDivider && (
+                <div className="max-w-5xl mx-auto px-6">
+                  <div className="section-divider" />
+                </div>
+              )}
+
+              {section === "stack" && (
+                <StackSection
+                  title={stackTitle}
+                  subtitle={stackSubtitle}
+                  description={stackDescription}
+                  stackItems={stackItems}
+                />
+              )}
+
+              {section === "services" && (
+                <ServicesSection
+                  title={servicesTitle}
+                  subtitle={servicesSubtitle}
+                  servicesItems={servicesItems}
+                />
+              )}
+
+              {section === "gallery" && (
+                <GallerySection
+                  title={galleryTitle}
+                  subtitle={gallerySubtitle}
+                  description={galleryDescription}
+                  projects={projects}
+                />
+              )}
+            </div>
           );
         })}
-        
-        {/* Footer avec données dynamiques */}
-        <FooterSection 
+
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="section-divider" />
+        </div>
+
+        <FooterSection
           footerText={footerText}
           email={email}
           socialLinks={socialLinks}
