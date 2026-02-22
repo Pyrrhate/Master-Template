@@ -62,7 +62,7 @@ const StackSection = ({
   stackItems 
 }: StackSectionProps) => {
   return (
-    <section id="stack" className="py-10 px-6 relative">
+    <section id="stack" className="py-8 sm:py-10 px-6 relative">
       {/* Background grid effect */}
       <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
       
@@ -73,7 +73,7 @@ const StackSection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
@@ -130,7 +130,7 @@ const StackSection = ({
         </motion.div>
 
         {/* Industrial decorative element */}
-        <div className="mt-12 flex items-center justify-center gap-3">
+        <div className="mt-8 sm:mt-12 flex items-center justify-center gap-3">
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="flex gap-1">
             <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />

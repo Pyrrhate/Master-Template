@@ -49,7 +49,7 @@ const GallerySection = ({
   projects
 }: GallerySectionProps) => {
   return (
-    <section id="gallery" className="py-10 px-6 relative">
+    <section id="gallery" className="py-8 sm:py-10 px-6 relative">
       {/* Background effect */}
       <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
       
@@ -60,7 +60,7 @@ const GallerySection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
           transition={{ duration: 0.45, ease: "easeOut" }}
-          className="text-center mb-12"
+          className="text-center mb-8 sm:mb-12"
         >
           <div className="inline-flex items-center gap-2 mb-4">
             <div className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
@@ -83,7 +83,7 @@ const GallerySection = ({
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="flex flex-wrap items-stretch justify-center gap-4"
+          className="flex flex-wrap items-stretch justify-center gap-x-4 gap-y-8 md:gap-y-4"
         >
           {projects.map((project, index) => (
             <motion.div
@@ -110,12 +110,10 @@ const GallerySection = ({
 
               {/* Content avec animation */}
               <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <p className="inline-flex w-fit rounded-full px-2.5 py-1 border border-primary/60 bg-background/95 backdrop-blur-md text-xs font-semibold text-foreground tracking-wider uppercase mb-2 items-center gap-2 shadow-md shadow-background/80">
-                  <span className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-                  {project.category}
-                </p>
                 <div className="flex items-center justify-between">
-                  <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors">
+                  <h3
+                    className="inline-flex w-fit rounded-full px-3 py-1 border border-primary/70 bg-[hsl(var(--primary)/0.72)] text-sm font-semibold text-white transition-all"
+                  >
                     {project.title}
                   </h3>
                   {project.url && (
@@ -123,9 +121,9 @@ const GallerySection = ({
                       href={project.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-8 h-8 rounded-full glass flex items-center justify-center hover:bg-primary/20 transition-colors"
+                      className="inline-flex min-w-9 h-9 rounded-full px-2 border border-primary/70 bg-[hsl(var(--primary)/0.72)] items-center justify-center text-white transition-all"
                     >
-                      <ExternalLink className="w-4 h-4 text-primary" />
+                      <ExternalLink className="w-4 h-4" />
                     </a>
                   )}
                 </div>
@@ -135,8 +133,8 @@ const GallerySection = ({
               </div>
 
               {/* Static label badge */}
-              <div className="absolute top-4 left-4 rounded-full px-3 py-1.5 border border-primary/60 bg-background/95 backdrop-blur-md shadow-lg shadow-background/80">
-                <span className="text-xs font-bold text-foreground uppercase tracking-wider">
+              <div className="absolute top-4 left-4 rounded-full px-3 py-1.5 border border-primary/70 bg-[hsl(var(--background)/0.82)] shadow-lg shadow-background/90">
+                <span className="text-xs font-bold text-[hsl(var(--foreground)/0.9)] uppercase tracking-wider">
                   {project.category}
                 </span>
               </div>
@@ -151,7 +149,7 @@ const GallerySection = ({
         </motion.div>
 
         {/* Industrial decorative element */}
-        <div className="mt-12 flex items-center justify-center gap-3">
+        <div className="mt-8 sm:mt-12 flex items-center justify-center gap-3">
           <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
           <div className="flex gap-1">
             <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
