@@ -39,7 +39,7 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
             className="mb-10 flex justify-center"
           >
             <div className="relative group">
@@ -77,7 +77,7 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
         <motion.h1
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.6, delay: 0.25, ease: [0.16, 1, 0.3, 1] as const }}
           className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.04em] leading-[0.9] text-[hsl(var(--foreground))] text-balance"
         >
           {title}
