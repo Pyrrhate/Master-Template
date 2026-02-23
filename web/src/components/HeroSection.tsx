@@ -143,7 +143,7 @@ const HeroSection = ({ title, subtitle, mainImage }: HeroProps) => {
           className="flex flex-col items-center gap-2 text-[hsl(var(--muted-foreground)/0.4)] hover:text-[hsl(var(--muted-foreground)/0.7)] transition-colors"
           aria-label="Scroll down"
         >
-          <span className="text-[10px] uppercase tracking-[0.25em] font-medium">Scroll</span>
+          <span className="hidden text-[10px] uppercase tracking-[0.25em] font-medium sm:block">Scroll</span>
           <ArrowDown className="w-4 h-4 animate-scroll-hint" />
         </a>
       </motion.div>
