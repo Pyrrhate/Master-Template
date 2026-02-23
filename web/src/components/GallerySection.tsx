@@ -1,14 +1,15 @@
-import { ExternalLink } from "lucide-react";
+"use client";
+
+import { ExternalLink, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { urlFor } from "@/sanity/client";
 
-// Interface pour un projet
 export interface GalleryProject {
   title: string;
   category: string;
-  image: any; // Image Sanity
+  image: any;
   url?: string;
-  span?: string; // Classes de grid span
+  span?: string;
 }
 
 interface GallerySectionProps {
@@ -18,146 +19,121 @@ interface GallerySectionProps {
   projects: GalleryProject[];
 }
 
-const viewport = { once: true, margin: "-100px" };
+const viewport = { once: true, margin: "-80px" };
 
-const gridVariants = {
-  hidden: { opacity: 0, y: 28 },
+const containerVariants = {
+  hidden: { opacity: 0 },
   show: {
     opacity: 1,
-    y: 0,
     transition: {
-      duration: 0.45,
-      ease: [0.16, 1, 0.3, 1] as const,
-      staggerChildren: 0.12,
+      staggerChildren: 0.1,
+      delayChildren: 0.1,
     },
   },
 };
 
 const tileVariants = {
-  hidden: { opacity: 0, y: 22 },
+  hidden: { opacity: 0, y: 24 },
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
-const GallerySection = ({ 
+const GallerySection = ({
   title = "The Gallery",
   subtitle = "The Output",
   description = "Selected works from the factory floor. Each piece is engineered to perform.",
-  projects
+  projects,
 }: GallerySectionProps) => {
   return (
-    <section id="gallery" className="py-8 sm:py-10 px-6 relative">
-      {/* Background effect */}
-      <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
-      
-      <div className="max-w-6xl mx-auto relative z-10">
-        {/* Section header avec style industriel */}
+    <section id="gallery" className="py-20 sm:py-32 px-6 relative scroll-mt-24">
+      <div className="max-w-5xl mx-auto relative z-10">
+        {/* Section Header */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={viewport}
-          transition={{ duration: 0.45, ease: "easeOut" }}
-          className="text-center mb-8 sm:mb-12"
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+          className="mb-16"
         >
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div className="h-px w-8 bg-gradient-to-r from-transparent to-accent" />
-            <p className="text-xs font-semibold tracking-[0.3em] uppercase text-accent-foreground">
-              {subtitle}
-            </p>
-            <div className="h-px w-8 bg-gradient-to-l from-transparent to-accent" />
-          </div>
-          <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-4">
+          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-[hsl(var(--primary))] mb-4 font-mono">
+            {subtitle}
+          </span>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-[hsl(var(--foreground))] mb-4">
             {title}
           </h2>
-          <p className="mt-4 text-muted-foreground max-w-lg mx-auto">
+          <p className="text-[hsl(var(--muted-foreground))] max-w-lg leading-relaxed">
             {description}
           </p>
         </motion.div>
 
-        {/* Gallery Grid avec effets industriels */}
+        {/* Gallery Grid */}
         <motion.div
-          variants={gridVariants}
+          variants={containerVariants}
           initial="hidden"
           whileInView="show"
           viewport={viewport}
-          className="flex flex-wrap items-stretch justify-center gap-x-4 gap-y-8 md:gap-y-4"
+          className="grid grid-cols-1 md:grid-cols-2 gap-5"
         >
-          {projects.map((project, index) => (
-            <motion.div
-              key={project.title}
-              variants={tileVariants}
-              transition={{ delay: index * 0.12 }}
-              className="w-full md:w-[calc(33.333%-1.1rem)] min-w-[280px] max-w-[520px] group relative overflow-hidden rounded-2xl glass aspect-[4/3] cursor-pointer transition-all duration-500 hover:scale-[1.02] border border-primary/10 hover:border-primary/30"
-            >
-              {/* Image avec effet de zoom */}
-              {project.image && (
-                <img
-                  src={urlFor(project.image).width(800).url()}
-                  alt={project.title}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  loading="lazy"
-                />
-              )}
+          {projects.map((project) => {
+            const Wrapper = project.url ? "a" : "div";
+            const wrapperProps = project.url
+              ? { href: project.url, target: "_blank", rel: "noopener noreferrer" }
+              : {};
 
-              {/* Overlay gradient industriel */}
-              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/40 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300" />
-              
-              {/* Glow effect on hover */}
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay" />
+            return (
+              <motion.div
+                key={project.title}
+                variants={tileVariants}
+              >
+                <Wrapper
+                  {...(wrapperProps as any)}
+                  className="block group relative overflow-hidden rounded-2xl bg-[hsl(var(--card))] border border-[hsl(var(--border))] transition-all duration-500 hover:border-[hsl(var(--primary)/0.3)] hover:shadow-[0_8px_40px_hsl(var(--glow-primary))]"
+                >
+                  {/* Image container */}
+                  <div className="relative aspect-[16/10] overflow-hidden">
+                    {project.image && (
+                      <img
+                        src={urlFor(project.image).width(900).url()}
+                        alt={project.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    )}
 
-              {/* Content avec animation */}
-              <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-2 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-300">
-                <div className="flex items-center justify-between">
-                  <h3
-                    className="inline-flex w-fit rounded-full px-3 py-1 border border-primary/70 bg-[hsl(var(--primary)/0.72)] text-sm font-semibold text-white transition-all"
-                  >
-                    {project.title}
-                  </h3>
-                  {project.url && (
-                    <a
-                      href={project.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex min-w-9 h-9 rounded-full px-2 border border-primary/70 bg-[hsl(var(--primary)/0.72)] items-center justify-center text-white transition-all"
-                    >
-                      <ExternalLink className="w-4 h-4" />
-                    </a>
-                  )}
-                </div>
-                
-                {/* Bottom accent line */}
-                <div className="mt-3 h-px w-full bg-gradient-to-r from-primary via-accent to-transparent" />
-              </div>
+                    {/* Overlay on hover */}
+                    <div className="absolute inset-0 bg-[hsl(var(--background)/0.6)] opacity-0 group-hover:opacity-100 transition-opacity duration-400 flex items-center justify-center">
+                      {project.url && (
+                        <div className="w-12 h-12 rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] flex items-center justify-center scale-75 opacity-0 group-hover:scale-100 group-hover:opacity-100 transition-all duration-300 delay-100">
+                          <ArrowUpRight className="w-5 h-5" />
+                        </div>
+                      )}
+                    </div>
 
-              {/* Static label badge */}
-              <div className="absolute top-4 left-4 rounded-full px-3 py-1.5 border border-primary/70 bg-[hsl(var(--background)/0.82)] shadow-lg shadow-background/90">
-                <span className="text-xs font-bold text-[hsl(var(--foreground)/0.9)] uppercase tracking-wider">
-                  {project.category}
-                </span>
-              </div>
+                    {/* Category tag */}
+                    <div className="absolute top-4 left-4">
+                      <span className="inline-flex px-3 py-1.5 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-[hsl(var(--background)/0.8)] text-[hsl(var(--foreground)/0.9)] border border-[hsl(var(--border)/0.5)] backdrop-blur-sm">
+                        {project.category}
+                      </span>
+                    </div>
+                  </div>
 
-              {/* Corner accent */}
-              <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-bl-3xl" />
-              
-              {/* Bottom corner accent */}
-              <div className="absolute bottom-0 left-0 w-20 h-20 bg-gradient-to-tr from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity rounded-tr-3xl" />
-            </motion.div>
-          ))}
+                  {/* Bottom info bar */}
+                  <div className="px-6 py-5 flex items-center justify-between">
+                    <h3 className="text-base font-semibold text-[hsl(var(--foreground))] group-hover:text-[hsl(var(--primary))] transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    {project.url && (
+                      <ExternalLink className="w-4 h-4 text-[hsl(var(--muted-foreground))] group-hover:text-[hsl(var(--primary))] transition-colors duration-300" />
+                    )}
+                  </div>
+                </Wrapper>
+              </motion.div>
+            );
+          })}
         </motion.div>
-
-        {/* Industrial decorative element */}
-        <div className="mt-8 sm:mt-12 flex items-center justify-center gap-3">
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
-          <div className="flex gap-1">
-            <div className="w-1 h-1 rounded-full bg-accent animate-pulse" />
-            <div className="w-1 h-1 rounded-full bg-accent animate-pulse" style={{ animationDelay: '0.2s' }} />
-            <div className="w-1 h-1 rounded-full bg-accent animate-pulse" style={{ animationDelay: '0.4s' }} />
-          </div>
-          <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
-        </div>
       </div>
     </section>
   );

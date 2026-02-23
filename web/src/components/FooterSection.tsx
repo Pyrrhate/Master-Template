@@ -1,4 +1,6 @@
-import { Github, Twitter, Linkedin, Mail, MapPin, ArrowRight } from "lucide-react";
+"use client";
+
+import { Github, Twitter, Linkedin, Mail, MapPin, ArrowRight, ArrowUpRight } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface SocialLink {
@@ -12,20 +14,20 @@ interface FooterSectionProps {
   socialLinks?: SocialLink[];
 }
 
-const viewport = { once: true, margin: "-100px" };
+const viewport = { once: true, margin: "-80px" };
 
 const getIconForPlatform = (platform: string) => {
-  const platformLower = platform.toLowerCase();
-  if (platformLower.includes("github")) return <Github className="w-4 h-4" />;
-  if (platformLower.includes("twitter")) return <Twitter className="w-4 h-4" />;
-  if (platformLower.includes("linkedin")) return <Linkedin className="w-4 h-4" />;
-  if (platformLower.includes("mail") || platformLower.includes("email")) return <Mail className="w-4 h-4" />;
-  return <MapPin className="w-4 h-4" />;
+  const p = platform.toLowerCase();
+  if (p.includes("github")) return <Github className="w-5 h-5" />;
+  if (p.includes("twitter") || p.includes("x")) return <Twitter className="w-5 h-5" />;
+  if (p.includes("linkedin")) return <Linkedin className="w-5 h-5" />;
+  if (p.includes("mail") || p.includes("email")) return <Mail className="w-5 h-5" />;
+  return <MapPin className="w-5 h-5" />;
 };
 
 const FooterSection = ({
   email = "contact@example.com",
-  footerText = "Built with Next.js 16 • Powered by Sanity • Deployed on Edge",
+  footerText = "Built with Next.js 16 & Sanity CMS",
   socialLinks = [],
 }: FooterSectionProps) => {
   const validSocialLinks = socialLinks.filter(
@@ -34,78 +36,76 @@ const FooterSection = ({
 
   return (
     <>
-      <section id="contact" className="py-8 sm:py-10 px-6 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.02] grid-pattern" />
-
-        <div className="max-w-6xl mx-auto relative z-10">
+      {/* Contact CTA Section */}
+      <section id="contact" className="py-20 sm:py-32 px-6 relative scroll-mt-24">
+        <div className="max-w-5xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={viewport}
-            transition={{ duration: 0.45, ease: "easeOut" }}
-            className="text-center mb-8 sm:mb-12"
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] as const }}
+            className="text-center"
           >
-            <div className="inline-flex items-center gap-2 mb-4">
-              <div className="h-px w-8 bg-gradient-to-r from-transparent to-primary" />
-              <p className="text-xs font-semibold tracking-[0.3em] uppercase text-primary">
-                Let's Connect
-              </p>
-              <div className="h-px w-8 bg-gradient-to-l from-transparent to-primary" />
-            </div>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              Discutons de votre projet et forgeons ensemble votre prochain outil numérique.
+            <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-[hsl(var(--primary))] mb-6 font-mono">
+              Contact
+            </span>
+
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-[hsl(var(--foreground))] mb-6 text-balance">
+              {"Travaillons ensemble"}
+            </h2>
+
+            <p className="text-[hsl(var(--muted-foreground))] max-w-md mx-auto mb-10 leading-relaxed">
+              {"Discutons de votre projet et forgeons ensemble votre prochain outil numerique."}
             </p>
 
+            {/* Email CTA */}
             <a
               href={`mailto:${email}`}
-              className="group relative inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold overflow-hidden rounded-lg bg-primary text-primary-foreground border border-primary/40 shadow-lg shadow-primary/30 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(87,131,187,0.5)]"
+              className="group inline-flex items-center gap-3 px-8 py-4 text-base font-semibold rounded-xl bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] transition-all duration-300 hover:shadow-[0_0_40px_hsl(var(--glow-primary))] hover:scale-[1.03]"
             >
-              <span className="relative z-10">Contact</span>
-              <ArrowRight className="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1" />
-              <div className="absolute inset-0 bg-gradient-to-r from-primary via-accent to-primary opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
+              Envoyer un message
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
+
+            {/* Social Links */}
+            {validSocialLinks.length > 0 && (
+              <div className="mt-12 flex items-center justify-center gap-3">
+                {validSocialLinks.map((link) => (
+                  <a
+                    key={link.platform}
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={link.platform}
+                    className="group relative w-12 h-12 rounded-xl flex items-center justify-center text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--primary))] border border-[hsl(var(--border))] bg-[hsl(var(--secondary)/0.3)] hover:border-[hsl(var(--primary)/0.3)] hover:bg-[hsl(var(--primary)/0.06)] transition-all duration-300"
+                    title={link.platform}
+                  >
+                    {getIconForPlatform(link.platform)}
+                  </a>
+                ))}
+              </div>
+            )}
           </motion.div>
-
-          {validSocialLinks.length > 0 && (
-            <div className="flex items-center justify-center gap-3 mb-10">
-              {validSocialLinks.map((link) => (
-                <a
-                  key={link.platform}
-                  href={link.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={link.platform}
-                  className="group relative w-12 h-12 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-primary transition-all duration-300 border border-primary/10 hover:border-primary/40 overflow-hidden"
-                  title={link.platform}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                  <span className="relative z-10">{getIconForPlatform(link.platform)}</span>
-                </a>
-              ))}
-            </div>
-          )}
-
-          <div className="flex items-center justify-center gap-3 my-5 sm:my-6">
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
-            <div className="flex gap-1">
-              <div className="w-1 h-1 rounded-full bg-primary animate-pulse" />
-              <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: "0.2s" }} />
-              <div className="w-1 h-1 rounded-full bg-primary animate-pulse" style={{ animationDelay: "0.4s" }} />
-            </div>
-            <div className="h-px w-24 bg-gradient-to-r from-transparent via-border to-transparent" />
-          </div>
         </div>
       </section>
 
-      <footer className="py-6 px-6 relative overflow-hidden bg-secondary/35 border-t border-border/70">
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/15 to-transparent opacity-40" />
-        <div className="max-w-6xl mx-auto relative z-10 text-center space-y-3">
-          <div className="text-xs text-muted-foreground">
-            © 2026 <span className="text-primary font-semibold">GCanva</span> • All rights reserved
-          </div>
-          <div className="text-[10px] text-muted-foreground/60 uppercase tracking-wider">
+      {/* Footer */}
+      <footer className="py-8 px-6 border-t border-[hsl(var(--border)/0.5)]">
+        <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          {/* Logo */}
+          <span className="text-sm font-semibold text-[hsl(var(--foreground))]">
+            GCanva<span className="text-[hsl(var(--primary))]">.</span>
+          </span>
+
+          {/* Footer text */}
+          <p className="text-xs text-[hsl(var(--muted-foreground)/0.5)] tracking-wide">
             {footerText}
-          </div>
+          </p>
+
+          {/* Copyright */}
+          <span className="text-xs text-[hsl(var(--muted-foreground)/0.4)]">
+            {"2026 Tous droits réservés"}
+          </span>
         </div>
       </footer>
     </>
