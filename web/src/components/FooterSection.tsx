@@ -37,7 +37,7 @@ const FooterSection = ({
   return (
     <>
       {/* Contact CTA Section */}
-      <section id="contact" className="py-24 sm:py-32 px-6 relative">
+      <section id="contact" className="py-20 sm:py-32 px-6 relative scroll-mt-24">
         <div className="max-w-5xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -104,7 +104,7 @@ const FooterSection = ({
 
           {/* Copyright */}
           <span className="text-xs text-[hsl(var(--muted-foreground)/0.4)]">
-            {"2026 All rights reserved"}
+            {"2026 Tous droits réservés"}
           </span>
         </div>
       </footer>

@@ -1,6 +1,6 @@
 "use client";
 
-import { Code2, Layout, Search, Smartphone, Cpu, Shield, ArrowUpRight } from "lucide-react";
+import { Code2, Layout, Search, Smartphone, Cpu, Shield } from "lucide-react";
 import { motion } from "framer-motion";
 
 export interface ServiceItem {
@@ -52,7 +52,7 @@ const ServicesSection = ({
   servicesItems,
 }: ServicesSectionProps) => {
   return (
-    <section id="services" className="py-24 sm:py-32 px-6 relative">
+    <section id="services" className="py-20 sm:py-32 px-6 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
@@ -112,10 +112,6 @@ const ServicesSection = ({
                   </p>
                 </div>
 
-                {/* Arrow indicator */}
-                <div className="shrink-0 w-10 h-10 rounded-full border border-[hsl(var(--border))] flex items-center justify-center text-[hsl(var(--muted-foreground))] opacity-0 group-hover:opacity-100 group-hover:border-[hsl(var(--primary)/0.3)] group-hover:text-[hsl(var(--primary))] transition-all duration-300 group-hover:translate-x-0 -translate-x-2">
-                  <ArrowUpRight className="w-4 h-4" />
-                </div>
               </div>
 
               {/* Bottom border */}

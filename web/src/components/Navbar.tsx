@@ -18,6 +18,30 @@ export default function Navbar({ sectionOrder }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  const handleMobileLinkClick = (event: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    event.preventDefault();
+    setMobileOpen(false);
+
+    const id = href.replace("#", "");
+    window.setTimeout(() => {
+      if (!id) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      const target = document.getElementById(id);
+      if (!target) {
+        window.location.hash = id;
+        return;
+      }
+
+      const navOffset = 88;
+      const top = target.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.history.replaceState(null, "", `#${id}`);
+      window.scrollTo({ top, behavior: "smooth" });
+    }, 320);
+  };
+
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -34,10 +58,10 @@ export default function Navbar({ sectionOrder }: NavbarProps) {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+      className={`fixed top-0 left-0 right-0 z-50 border-b transition-[background-color,border-color,backdrop-filter] duration-500 ${
         scrolled
-          ? "nav-blur bg-[hsl(228_28%_7%/0.85)] border-b border-[hsl(var(--border)/0.5)]"
-          : "bg-transparent"
+          ? "nav-blur bg-[hsl(228_28%_7%/0.85)] border-[hsl(var(--border)/0.5)]"
+          : "bg-transparent border-transparent"
       }`}
     >
       <nav className="max-w-6xl mx-auto px-6 flex items-center justify-between h-16">
@@ -97,7 +121,7 @@ export default function Navbar({ sectionOrder }: NavbarProps) {
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={() => setMobileOpen(false)}
+                  onClick={(event) => handleMobileLinkClick(event, link.href)}
                   className="px-4 py-3 text-sm font-medium text-[hsl(var(--muted-foreground))] hover:text-[hsl(var(--foreground))] hover:bg-[hsl(var(--secondary)/0.5)] rounded-lg transition-colors"
                 >
                   {link.label}
@@ -105,7 +129,7 @@ export default function Navbar({ sectionOrder }: NavbarProps) {
               ))}
               <a
                 href="#contact"
-                onClick={() => setMobileOpen(false)}
+                onClick={(event) => handleMobileLinkClick(event, "#contact")}
                 className="mt-2 flex items-center justify-center px-4 py-3 text-sm font-medium rounded-lg bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))]"
               >
                 Discutons

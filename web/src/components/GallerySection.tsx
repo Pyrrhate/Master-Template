@@ -48,7 +48,7 @@ const GallerySection = ({
   projects,
 }: GallerySectionProps) => {
   return (
-    <section id="gallery" className="py-24 sm:py-32 px-6 relative">
+    <section id="gallery" className="py-20 sm:py-32 px-6 relative scroll-mt-24">
       <div className="max-w-5xl mx-auto relative z-10">
         {/* Section Header */}
         <motion.div
