@@ -25,22 +25,26 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await client.fetch<{
     siteName?: string;
     faviconUrl?: string;
+    faviconUpdatedAt?: string;
     seo?: {
       metaTitle?: string;
       metaDescription?: string;
     };
-  }>(`*[_type == "siteSettings"][0]{
+  }>(`*[_id == "siteSettings"][0]{
     siteName,
     "faviconUrl": favicon.asset->url,
+    "faviconUpdatedAt": favicon.asset->_updatedAt,
     seo {
       metaTitle,
       metaDescription
     }
   }`);
 
-  const title = settings?.seo?.metaTitle || settings?.siteName || defaultTitle;
+  const title = settings?.siteName || settings?.seo?.metaTitle || defaultTitle;
   const description = settings?.seo?.metaDescription || defaultDescription;
-  const faviconUrl = settings?.faviconUrl;
+  const faviconUrl = settings?.faviconUrl
+    ? `${settings.faviconUrl}?v=${encodeURIComponent(settings.faviconUpdatedAt ?? "1")}`
+    : undefined;
 
   return {
     title,
