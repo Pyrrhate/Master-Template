@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
+import { client } from "@/sanity/client";
 import "./globals.css";
 
 const inter = Inter({
@@ -14,10 +15,45 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  title: "GCanva | Creative Developer & Digital Craftsman",
-  description: "Portfolio premium de GCanva - Artiste & Integrateur web. Expertise Next.js, React, Sanity CMS et design systems.",
-};
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const defaultTitle = "GCanva | Creative Developer & Digital Craftsman";
+  const defaultDescription =
+    "Portfolio premium de GCanva - Artiste & Integrateur web. Expertise Next.js, React, Sanity CMS et design systems.";
+
+  const settings = await client.fetch<{
+    siteName?: string;
+    faviconUrl?: string;
+    seo?: {
+      metaTitle?: string;
+      metaDescription?: string;
+    };
+  }>(`*[_type == "siteSettings"][0]{
+    siteName,
+    "faviconUrl": favicon.asset->url,
+    seo {
+      metaTitle,
+      metaDescription
+    }
+  }`);
+
+  const title = settings?.seo?.metaTitle || settings?.siteName || defaultTitle;
+  const description = settings?.seo?.metaDescription || defaultDescription;
+  const faviconUrl = settings?.faviconUrl;
+
+  return {
+    title,
+    description,
+    icons: faviconUrl
+      ? {
+          icon: [{ url: faviconUrl }],
+          shortcut: [{ url: faviconUrl }],
+          apple: [{ url: faviconUrl }],
+        }
+      : undefined,
+  };
+}
 
 export const viewport: Viewport = {
   themeColor: "#0f1219",
